@@ -33,6 +33,15 @@
       "relation": "oneToMany",
       "target": "api::article.article",
       "mappedBy": "author"
+    },
+    "press_releases": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::press-release.press-release",
+      "mappedBy": "author"
+    },
+    "phone": {
+      "type": "string"
     }
   }
 }
