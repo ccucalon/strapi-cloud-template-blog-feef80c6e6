@@ -797,7 +797,7 @@ export interface ApiAboutAbout extends Schema.SingleType {
     description: 'Write about yourself and the content you create';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   pluginOptions: {
     i18n: {
@@ -811,13 +811,19 @@ export interface ApiAboutAbout extends Schema.SingleType {
           localized: true;
         };
       }>;
-    main: Attribute.Component<'shared.one-column-narrow', true> &
+    main: Attribute.Component<'shared.one-column-narrow'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    staff: Attribute.Component<'shared.staff-directory', true> &
+    staff: Attribute.Component<'shared.staff-directory'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Attribute.Component<'shared.seo'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -825,6 +831,7 @@ export interface ApiAboutAbout extends Schema.SingleType {
       }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::about.about',
       'oneToOne',
