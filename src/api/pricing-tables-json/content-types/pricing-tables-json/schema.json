@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "pricing_tables_jsons",
+  "info": {
+    "singularName": "pricing-tables-json",
+    "pluralName": "pricing-tables-jsons",
+    "displayName": "Pricing Tables (JSON)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pricing": {
+      "type": "json"
+    }
+  }
+}

@@ -1034,6 +1034,37 @@ export interface ApiPressReleasePressRelease extends Schema.CollectionType {
   };
 }
 
+export interface ApiPricingTablesJsonPricingTablesJson
+  extends Schema.SingleType {
+  collectionName: 'pricing_tables_jsons';
+  info: {
+    singularName: 'pricing-tables-json';
+    pluralName: 'pricing-tables-jsons';
+    displayName: 'Pricing Tables (JSON)';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    pricing: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pricing-tables-json.pricing-tables-json',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pricing-tables-json.pricing-tables-json',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1056,6 +1087,7 @@ declare module '@strapi/types' {
       'api::global.global': ApiGlobalGlobal;
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;
       'api::press-release.press-release': ApiPressReleasePressRelease;
+      'api::pricing-tables-json.pricing-tables-json': ApiPricingTablesJsonPricingTablesJson;
     }
   }
 }
