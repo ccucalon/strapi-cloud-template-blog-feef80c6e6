@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_shared_one_column_narrows",
+  "info": {
+    "displayName": "OneColumnNarrow"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

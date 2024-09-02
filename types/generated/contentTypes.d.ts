@@ -811,9 +811,13 @@ export interface ApiAboutAbout extends Schema.SingleType {
           localized: true;
         };
       }>;
-    blocks: Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    > &
+    main: Attribute.Component<'shared.one-column-narrow', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    staff: Attribute.Component<'shared.staff-directory', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

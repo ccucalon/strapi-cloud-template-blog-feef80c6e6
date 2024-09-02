@@ -24,19 +24,25 @@
         }
       }
     },
-    "blocks": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.media",
-        "shared.quote",
-        "shared.rich-text",
-        "shared.slider"
-      ],
+    "main": {
+      "type": "component",
+      "repeatable": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "shared.one-column-narrow"
+    },
+    "staff": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.staff-directory"
     }
   }
 }

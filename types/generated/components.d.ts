@@ -1,5 +1,17 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface SharedStaffDirectory extends Schema.Component {
+  collectionName: 'components_shared_staff_directories';
+  info: {
+    displayName: 'Staff directory';
+    description: '';
+  };
+  attributes: {
+    heading: Attribute.String;
+    directory: Attribute.JSON;
+  };
+}
+
 export interface SharedSlider extends Schema.Component {
   collectionName: 'components_shared_sliders';
   info: {
@@ -51,6 +63,16 @@ export interface SharedQuote extends Schema.Component {
   };
 }
 
+export interface SharedOneColumnNarrow extends Schema.Component {
+  collectionName: 'components_shared_one_column_narrows';
+  info: {
+    displayName: 'OneColumnNarrow';
+  };
+  attributes: {
+    content: Attribute.RichText;
+  };
+}
+
 export interface SharedMedia extends Schema.Component {
   collectionName: 'components_shared_media';
   info: {
@@ -65,10 +87,12 @@ export interface SharedMedia extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'shared.staff-directory': SharedStaffDirectory;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
       'shared.rich-text': SharedRichText;
       'shared.quote': SharedQuote;
+      'shared.one-column-narrow': SharedOneColumnNarrow;
       'shared.media': SharedMedia;
     }
   }

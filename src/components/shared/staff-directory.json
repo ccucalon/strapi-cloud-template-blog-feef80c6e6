@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_staff_directories",
+  "info": {
+    "displayName": "Staff directory",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "directory": {
+      "type": "json"
+    }
+  }
+}
