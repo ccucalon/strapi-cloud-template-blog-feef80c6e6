@@ -6,9 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "heading": {
-      "type": "string"
-    },
     "directory": {
       "type": "json"
     }

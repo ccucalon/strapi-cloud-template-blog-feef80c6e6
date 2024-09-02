@@ -69,7 +69,6 @@ export interface NextjsStaffDirectory extends Schema.Component {
     description: '';
   };
   attributes: {
-    heading: Attribute.String;
     directory: Attribute.JSON;
   };
 }
@@ -85,6 +84,17 @@ export interface NextjsOneColumnNarrow extends Schema.Component {
   };
 }
 
+export interface NextjsMetadata extends Schema.Component {
+  collectionName: 'components_nextjs_metadata';
+  info: {
+    displayName: 'Metadata';
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text & Attribute.Required;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -95,6 +105,7 @@ declare module '@strapi/types' {
       'shared.media': SharedMedia;
       'nextjs.staff-directory': NextjsStaffDirectory;
       'nextjs.one-column-narrow': NextjsOneColumnNarrow;
+      'nextjs.metadata': NextjsMetadata;
     }
   }
 }

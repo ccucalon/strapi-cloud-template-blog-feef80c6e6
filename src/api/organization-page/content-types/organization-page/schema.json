@@ -1,0 +1,53 @@
+{
+  "kind": "singleType",
+  "collectionName": "organization_pages",
+  "info": {
+    "singularName": "organization-page",
+    "pluralName": "organization-pages",
+    "displayName": "Organization Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.metadata",
+      "required": true
+    },
+    "content": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.one-column-narrow",
+      "required": true
+    },
+    "staff": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "nextjs.staff-directory",
+      "required": true
+    }
+  }
+}
