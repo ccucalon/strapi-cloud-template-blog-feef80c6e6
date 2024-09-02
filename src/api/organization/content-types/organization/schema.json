@@ -4,7 +4,7 @@
   "info": {
     "singularName": "organization",
     "pluralName": "organizations",
-    "displayName": "organization",
+    "displayName": "Organization",
     "description": ""
   },
   "options": {
@@ -29,7 +29,7 @@
     "content": {
       "type": "component",
       "repeatable": false,
-      "component": "shared.one-column-narrow",
+      "component": "nextjs.one-column-narrow",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -39,10 +39,10 @@
     "staff": {
       "type": "component",
       "repeatable": false,
-      "component": "shared.staff-directory",
+      "component": "nextjs.staff-directory",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       }
     }

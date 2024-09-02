@@ -956,7 +956,7 @@ export interface ApiOrganizationOrganization extends Schema.SingleType {
   info: {
     singularName: 'organization';
     pluralName: 'organizations';
-    displayName: 'organization';
+    displayName: 'Organization';
     description: '';
   };
   options: {
@@ -974,16 +974,16 @@ export interface ApiOrganizationOrganization extends Schema.SingleType {
           localized: true;
         };
       }>;
-    content: Attribute.Component<'shared.one-column-narrow'> &
+    content: Attribute.Component<'nextjs.one-column-narrow'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    staff: Attribute.Component<'shared.staff-directory'> &
+    staff: Attribute.Component<'nextjs.staff-directory'> &
       Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     createdAt: Attribute.DateTime;
