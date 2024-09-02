@@ -81,7 +81,7 @@ export interface NextjsOneColumnNarrow extends Schema.Component {
     description: '';
   };
   attributes: {
-    content: Attribute.RichText;
+    content: Attribute.RichText & Attribute.Required;
   };
 }
 
