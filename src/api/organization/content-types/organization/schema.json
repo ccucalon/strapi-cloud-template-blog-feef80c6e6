@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "organizations",
+  "info": {
+    "singularName": "organization",
+    "pluralName": "organizations",
+    "displayName": "organization"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "content": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.one-column-narrow"
+    },
+    "staff": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.staff-directory"
+    }
+  }
+}
