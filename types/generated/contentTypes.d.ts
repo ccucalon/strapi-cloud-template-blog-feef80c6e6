@@ -1093,6 +1093,40 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
+  collectionName: 'history_pages';
+  info: {
+    singularName: 'history-page';
+    pluralName: 'history-pages';
+    displayName: 'History Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    participants: Attribute.Component<'nextjs.two-column-layout'>;
+    events: Attribute.Component<'nextjs.two-column-layout'>;
+    seo: Attribute.Component<'nextjs.metadata'>;
+    timeline: Attribute.Component<'nextjs.timeline', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::history-page.history-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::history-page.history-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHomepageHomepage extends Schema.SingleType {
   collectionName: 'homepages';
   info: {
@@ -1348,6 +1382,7 @@ declare module '@strapi/types' {
       'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::frequently-asked-questions-page.frequently-asked-questions-page': ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage;
       'api::global.global': ApiGlobalGlobal;
+      'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;
       'api::press-release.press-release': ApiPressReleasePressRelease;

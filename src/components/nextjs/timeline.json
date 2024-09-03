@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_nextjs_timelines",
+  "info": {
+    "displayName": "timeline"
+  },
+  "options": {},
+  "attributes": {
+    "year": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

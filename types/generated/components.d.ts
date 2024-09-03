@@ -95,6 +95,17 @@ export interface NextjsTwoColumnLayout extends Schema.Component {
   };
 }
 
+export interface NextjsTimeline extends Schema.Component {
+  collectionName: 'components_nextjs_timelines';
+  info: {
+    displayName: 'timeline';
+  };
+  attributes: {
+    year: Attribute.Integer;
+    description: Attribute.RichText;
+  };
+}
+
 export interface NextjsStaffDirectory extends Schema.Component {
   collectionName: 'components_shared_staff_directories';
   info: {
@@ -177,6 +188,7 @@ declare module '@strapi/types' {
       'shared.media': SharedMedia;
       'nextjs.two-column-page-header': NextjsTwoColumnPageHeader;
       'nextjs.two-column-layout': NextjsTwoColumnLayout;
+      'nextjs.timeline': NextjsTimeline;
       'nextjs.staff-directory': NextjsStaffDirectory;
       'nextjs.one-column-narrow': NextjsOneColumnNarrow;
       'nextjs.next-image': NextjsNextImage;

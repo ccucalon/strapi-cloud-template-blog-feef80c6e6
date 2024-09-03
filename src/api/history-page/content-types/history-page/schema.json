@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "history_pages",
+  "info": {
+    "singularName": "history-page",
+    "pluralName": "history-pages",
+    "displayName": "History Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "participants": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout"
+    },
+    "events": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata"
+    },
+    "timeline": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.timeline"
+    }
+  }
+}
