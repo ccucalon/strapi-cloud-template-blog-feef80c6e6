@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_nextjs_divisions",
+  "info": {
+    "displayName": "Divisions"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "record": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "flag": {
+      "type": "string"
+    }
+  }
+}

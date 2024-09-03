@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_nextjs_past_winners",
+  "info": {
+    "displayName": "Past Winner"
+  },
+  "options": {},
+  "attributes": {
+    "race": {
+      "type": "string"
+    },
+    "division": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.divisions"
+    }
+  }
+}

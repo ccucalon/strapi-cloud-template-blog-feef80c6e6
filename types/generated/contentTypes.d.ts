@@ -1109,6 +1109,7 @@ export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
     events: Attribute.Component<'nextjs.two-column-layout'>;
     seo: Attribute.Component<'nextjs.metadata'>;
     timeline: Attribute.Component<'nextjs.timeline', true>;
+    winners: Attribute.Component<'nextjs.past-winner', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

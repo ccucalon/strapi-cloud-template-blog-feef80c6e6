@@ -31,6 +31,11 @@
       "type": "component",
       "repeatable": true,
       "component": "nextjs.timeline"
+    },
+    "winners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.past-winner"
     }
   }
 }

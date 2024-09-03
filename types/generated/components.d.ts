@@ -117,6 +117,17 @@ export interface NextjsStaffDirectory extends Schema.Component {
   };
 }
 
+export interface NextjsPastWinner extends Schema.Component {
+  collectionName: 'components_nextjs_past_winners';
+  info: {
+    displayName: 'Past Winner';
+  };
+  attributes: {
+    race: Attribute.String;
+    division: Attribute.Component<'nextjs.divisions', true>;
+  };
+}
+
 export interface NextjsOneColumnNarrow extends Schema.Component {
   collectionName: 'components_shared_one_column_narrows';
   info: {
@@ -178,6 +189,21 @@ export interface NextjsFaqComponent extends Schema.Component {
   };
 }
 
+export interface NextjsDivisions extends Schema.Component {
+  collectionName: 'components_nextjs_divisions';
+  info: {
+    displayName: 'Divisions';
+  };
+  attributes: {
+    title: Attribute.String;
+    name: Attribute.String;
+    record: Attribute.String;
+    country: Attribute.String;
+    year: Attribute.Integer;
+    flag: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -190,11 +216,13 @@ declare module '@strapi/types' {
       'nextjs.two-column-layout': NextjsTwoColumnLayout;
       'nextjs.timeline': NextjsTimeline;
       'nextjs.staff-directory': NextjsStaffDirectory;
+      'nextjs.past-winner': NextjsPastWinner;
       'nextjs.one-column-narrow': NextjsOneColumnNarrow;
       'nextjs.next-image': NextjsNextImage;
       'nextjs.metadata': NextjsMetadata;
       'nextjs.faq': NextjsFaq;
       'nextjs.faq-component': NextjsFaqComponent;
+      'nextjs.divisions': NextjsDivisions;
     }
   }
 }
