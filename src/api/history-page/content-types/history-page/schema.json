@@ -10,32 +10,61 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "participants": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "events": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.metadata"
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "timeline": {
       "type": "component",
       "repeatable": true,
-      "component": "nextjs.timeline"
+      "component": "nextjs.timeline",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "winners": {
       "type": "component",
       "repeatable": true,
-      "component": "nextjs.past-winner"
+      "component": "nextjs.past-winner",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

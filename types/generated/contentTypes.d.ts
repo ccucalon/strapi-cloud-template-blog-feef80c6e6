@@ -1104,12 +1104,42 @@ export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    participants: Attribute.Component<'nextjs.two-column-layout'>;
-    events: Attribute.Component<'nextjs.two-column-layout'>;
-    seo: Attribute.Component<'nextjs.metadata'>;
-    timeline: Attribute.Component<'nextjs.timeline', true>;
-    winners: Attribute.Component<'nextjs.past-winner', true>;
+    participants: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    events: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    timeline: Attribute.Component<'nextjs.timeline', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    winners: Attribute.Component<'nextjs.past-winner', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1125,6 +1155,12 @@ export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::history-page.history-page',
+      'oneToMany',
+      'api::history-page.history-page'
+    >;
+    locale: Attribute.String;
   };
 }
 
