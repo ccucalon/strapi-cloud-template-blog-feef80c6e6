@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_nextjs_next_images",
+  "info": {
+    "displayName": "nextImage",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "showModal": {
+      "type": "boolean",
+      "default": false
+    },
+    "modalWidth": {
+      "type": "integer"
+    },
+    "modalHeight": {
+      "type": "integer"
+    }
+  }
+}

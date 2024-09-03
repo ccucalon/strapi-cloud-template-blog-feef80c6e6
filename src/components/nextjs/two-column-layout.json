@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_nextjs_two_column_layouts",
+  "info": {
+    "displayName": "Two Column Layout",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "componentId": {
+      "type": "string"
+    },
+    "logoImage": {
+      "type": "boolean",
+      "default": false
+    },
+    "reverse": {
+      "type": "boolean",
+      "default": false
+    },
+    "shaded": {
+      "type": "boolean",
+      "default": false
+    },
+    "background": {
+      "type": "string"
+    },
+    "image": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.next-image"
+    },
+    "html": {
+      "type": "richtext"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}
