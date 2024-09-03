@@ -1,0 +1,70 @@
+{
+  "kind": "singleType",
+  "collectionName": "weekend_series_pages",
+  "info": {
+    "singularName": "weekend-series-page",
+    "pluralName": "weekend-series-pages",
+    "displayName": "Weekend Series Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "date": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.date-time-place",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "participants": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "choctaw": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.metadata"
+    }
+  }
+}

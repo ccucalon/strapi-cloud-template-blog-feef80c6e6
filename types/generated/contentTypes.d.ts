@@ -1467,6 +1467,78 @@ export interface ApiPricingTablesJsonPricingTablesJson
   };
 }
 
+export interface ApiWeekendSeriesPageWeekendSeriesPage
+  extends Schema.SingleType {
+  collectionName: 'weekend_series_pages';
+  info: {
+    singularName: 'weekend-series-page';
+    pluralName: 'weekend-series-pages';
+    displayName: 'Weekend Series Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    date: Attribute.Component<'nextjs.date-time-place', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    participants: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    choctaw: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::weekend-series-page.weekend-series-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::weekend-series-page.weekend-series-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::weekend-series-page.weekend-series-page',
+      'oneToMany',
+      'api::weekend-series-page.weekend-series-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1496,6 +1568,7 @@ declare module '@strapi/types' {
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;
       'api::press-release.press-release': ApiPressReleasePressRelease;
       'api::pricing-tables-json.pricing-tables-json': ApiPricingTablesJsonPricingTablesJson;
+      'api::weekend-series-page.weekend-series-page': ApiWeekendSeriesPageWeekendSeriesPage;
     }
   }
 }
