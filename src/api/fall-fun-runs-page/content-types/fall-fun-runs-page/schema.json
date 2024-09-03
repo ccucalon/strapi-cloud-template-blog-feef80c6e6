@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "fall_fun_runs_pages",
+  "info": {
+    "singularName": "fall-fun-runs-page",
+    "pluralName": "fall-fun-runs-pages",
+    "displayName": "Fall Fun Runs Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "dateTimePlace": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.date-time-place",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "benefits": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

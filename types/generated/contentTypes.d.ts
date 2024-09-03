@@ -955,6 +955,65 @@ export interface ApiContactPageContactPage extends Schema.SingleType {
   };
 }
 
+export interface ApiFallFunRunsPageFallFunRunsPage extends Schema.SingleType {
+  collectionName: 'fall_fun_runs_pages';
+  info: {
+    singularName: 'fall-fun-runs-page';
+    pluralName: 'fall-fun-runs-pages';
+    displayName: 'Fall Fun Runs Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    dateTimePlace: Attribute.Component<'nextjs.date-time-place', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    benefits: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::fall-fun-runs-page.fall-fun-runs-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::fall-fun-runs-page.fall-fun-runs-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::fall-fun-runs-page.fall-fun-runs-page',
+      'oneToMany',
+      'api::fall-fun-runs-page.fall-fun-runs-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage
   extends Schema.SingleType {
   collectionName: 'frequently_asked_questions_pages';
@@ -1423,6 +1482,7 @@ declare module '@strapi/types' {
       'api::all-events-page.all-events-page': ApiAllEventsPageAllEventsPage;
       'api::author.author': ApiAuthorAuthor;
       'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::fall-fun-runs-page.fall-fun-runs-page': ApiFallFunRunsPageFallFunRunsPage;
       'api::frequently-asked-questions-page.frequently-asked-questions-page': ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage;
       'api::global.global': ApiGlobalGlobal;
       'api::history-page.history-page': ApiHistoryPageHistoryPage;

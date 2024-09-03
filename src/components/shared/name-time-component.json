@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_name_time_components",
+  "info": {
+    "displayName": "Name Time Component"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "string"
+    },
+    "startTime": {
+      "type": "time"
+    },
+    "endTime": {
+      "type": "time"
+    }
+  }
+}

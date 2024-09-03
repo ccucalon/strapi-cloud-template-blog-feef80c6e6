@@ -51,6 +51,18 @@ export interface SharedQuote extends Schema.Component {
   };
 }
 
+export interface SharedNameTimeComponent extends Schema.Component {
+  collectionName: 'components_shared_name_time_components';
+  info: {
+    displayName: 'Name Time Component';
+  };
+  attributes: {
+    description: Attribute.String;
+    startTime: Attribute.Time;
+    endTime: Attribute.Time;
+  };
+}
+
 export interface SharedMedia extends Schema.Component {
   collectionName: 'components_shared_media';
   info: {
@@ -59,6 +71,16 @@ export interface SharedMedia extends Schema.Component {
   };
   attributes: {
     file: Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface SharedDateComponent extends Schema.Component {
+  collectionName: 'components_shared_date_components';
+  info: {
+    displayName: 'Date Component';
+  };
+  attributes: {
+    date: Attribute.Date;
   };
 }
 
@@ -204,6 +226,20 @@ export interface NextjsDivisions extends Schema.Component {
   };
 }
 
+export interface NextjsDateTimePlace extends Schema.Component {
+  collectionName: 'components_nextjs_date_time_places';
+  info: {
+    displayName: 'Date Time Place';
+    description: '';
+  };
+  attributes: {
+    componentId: Attribute.String;
+    date: Attribute.Component<'shared.date-component', true>;
+    time: Attribute.Component<'shared.name-time-component', true>;
+    place: Attribute.RichText;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -211,7 +247,9 @@ declare module '@strapi/types' {
       'shared.seo': SharedSeo;
       'shared.rich-text': SharedRichText;
       'shared.quote': SharedQuote;
+      'shared.name-time-component': SharedNameTimeComponent;
       'shared.media': SharedMedia;
+      'shared.date-component': SharedDateComponent;
       'nextjs.two-column-page-header': NextjsTwoColumnPageHeader;
       'nextjs.two-column-layout': NextjsTwoColumnLayout;
       'nextjs.timeline': NextjsTimeline;
@@ -223,6 +261,7 @@ declare module '@strapi/types' {
       'nextjs.faq': NextjsFaq;
       'nextjs.faq-component': NextjsFaqComponent;
       'nextjs.divisions': NextjsDivisions;
+      'nextjs.date-time-place': NextjsDateTimePlace;
     }
   }
 }

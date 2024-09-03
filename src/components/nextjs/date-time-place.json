@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_nextjs_date_time_places",
+  "info": {
+    "displayName": "Date Time Place",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "componentId": {
+      "type": "string"
+    },
+    "date": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.date-component"
+    },
+    "time": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.name-time-component"
+    },
+    "place": {
+      "type": "richtext"
+    }
+  }
+}
