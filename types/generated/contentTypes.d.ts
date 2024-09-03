@@ -955,6 +955,78 @@ export interface ApiContactPageContactPage extends Schema.SingleType {
   };
 }
 
+export interface ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage
+  extends Schema.SingleType {
+  collectionName: 'frequently_asked_questions_pages';
+  info: {
+    singularName: 'frequently-asked-questions-page';
+    pluralName: 'frequently-asked-questions-pages';
+    displayName: 'Frequently Asked Questions Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    general: Attribute.Component<'nextjs.faq-component'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    relays: Attribute.Component<'nextjs.faq-component'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    packet: Attribute.Component<'nextjs.faq-component'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    corral: Attribute.Component<'nextjs.faq-component'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::frequently-asked-questions-page.frequently-asked-questions-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::frequently-asked-questions-page.frequently-asked-questions-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::frequently-asked-questions-page.frequently-asked-questions-page',
+      'oneToMany',
+      'api::frequently-asked-questions-page.frequently-asked-questions-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -1274,6 +1346,7 @@ declare module '@strapi/types' {
       'api::all-events-page.all-events-page': ApiAllEventsPageAllEventsPage;
       'api::author.author': ApiAuthorAuthor;
       'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::frequently-asked-questions-page.frequently-asked-questions-page': ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage;
       'api::global.global': ApiGlobalGlobal;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;

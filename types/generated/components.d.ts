@@ -145,6 +145,28 @@ export interface NextjsMetadata extends Schema.Component {
   };
 }
 
+export interface NextjsFaq extends Schema.Component {
+  collectionName: 'components_nextjs_faqs';
+  info: {
+    displayName: 'FAQ';
+  };
+  attributes: {
+    question: Attribute.String;
+    answer: Attribute.RichText;
+  };
+}
+
+export interface NextjsFaqComponent extends Schema.Component {
+  collectionName: 'components_nextjs_faq_components';
+  info: {
+    displayName: 'FAQ Component';
+  };
+  attributes: {
+    heading: Attribute.String;
+    questions: Attribute.Component<'nextjs.faq', true>;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -159,6 +181,8 @@ declare module '@strapi/types' {
       'nextjs.one-column-narrow': NextjsOneColumnNarrow;
       'nextjs.next-image': NextjsNextImage;
       'nextjs.metadata': NextjsMetadata;
+      'nextjs.faq': NextjsFaq;
+      'nextjs.faq-component': NextjsFaqComponent;
     }
   }
 }

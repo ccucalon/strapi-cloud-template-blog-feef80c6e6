@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_nextjs_faq_components",
+  "info": {
+    "displayName": "FAQ Component"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.faq"
+    }
+  }
+}
