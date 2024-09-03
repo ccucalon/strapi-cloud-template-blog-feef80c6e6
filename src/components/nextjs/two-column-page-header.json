@@ -1,7 +1,8 @@
 {
   "collectionName": "components_nextjs_two_column_page_headers",
   "info": {
-    "displayName": "Two Column Page Header"
+    "displayName": "Two Column Page Header",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -14,7 +15,7 @@
     },
     "image": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "component": "nextjs.next-image"
     },
     "shaded": {

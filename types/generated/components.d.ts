@@ -66,11 +66,12 @@ export interface NextjsTwoColumnPageHeader extends Schema.Component {
   collectionName: 'components_nextjs_two_column_page_headers';
   info: {
     displayName: 'Two Column Page Header';
+    description: '';
   };
   attributes: {
     componentId: Attribute.String;
     logoImage: Attribute.Boolean & Attribute.DefaultTo<false>;
-    image: Attribute.Component<'nextjs.next-image', true>;
+    image: Attribute.Component<'nextjs.next-image'>;
     shaded: Attribute.Boolean & Attribute.DefaultTo<false>;
     content: Attribute.RichText;
   };

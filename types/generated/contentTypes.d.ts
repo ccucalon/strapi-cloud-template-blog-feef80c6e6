@@ -915,7 +915,7 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-layout', true> &
+    hero: Attribute.Component<'nextjs.two-column-layout'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
