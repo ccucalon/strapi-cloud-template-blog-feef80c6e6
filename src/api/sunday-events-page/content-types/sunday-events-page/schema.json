@@ -1,0 +1,119 @@
+{
+  "kind": "singleType",
+  "collectionName": "sunday_events_pages",
+  "info": {
+    "singularName": "sunday-events-page",
+    "pluralName": "sunday-events-pages",
+    "displayName": "Sunday Events Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "date": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.date-time-place",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "participant": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "rules": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "choctaw": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "itab": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "awards": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "elite": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "legacy": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
