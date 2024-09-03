@@ -1,0 +1,49 @@
+{
+  "kind": "singleType",
+  "collectionName": "friday_night_lights_mile_pages",
+  "info": {
+    "singularName": "friday-night-lights-mile-page",
+    "pluralName": "friday-night-lights-mile-pages",
+    "displayName": "Friday Night Lights Mile Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-page-header"
+    },
+    "date": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.date-time-place"
+    },
+    "participants": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout"
+    },
+    "divisions": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout"
+    },
+    "race": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata"
+    },
+    "divisionsTable": {
+      "type": "json"
+    }
+  }
+}

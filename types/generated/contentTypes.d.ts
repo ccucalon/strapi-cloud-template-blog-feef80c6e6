@@ -1092,6 +1092,44 @@ export interface ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage
   };
 }
 
+export interface ApiFridayNightLightsMilePageFridayNightLightsMilePage
+  extends Schema.SingleType {
+  collectionName: 'friday_night_lights_mile_pages';
+  info: {
+    singularName: 'friday-night-lights-mile-page';
+    pluralName: 'friday-night-lights-mile-pages';
+    displayName: 'Friday Night Lights Mile Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    hero: Attribute.Component<'nextjs.two-column-page-header'>;
+    date: Attribute.Component<'nextjs.date-time-place', true>;
+    participants: Attribute.Component<'nextjs.two-column-layout'>;
+    divisions: Attribute.Component<'nextjs.two-column-layout'>;
+    race: Attribute.Component<'nextjs.two-column-layout'>;
+    seo: Attribute.Component<'nextjs.metadata'>;
+    divisionsTable: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::friday-night-lights-mile-page.friday-night-lights-mile-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::friday-night-lights-mile-page.friday-night-lights-mile-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -1562,6 +1600,7 @@ declare module '@strapi/types' {
       'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::fall-fun-runs-page.fall-fun-runs-page': ApiFallFunRunsPageFallFunRunsPage;
       'api::frequently-asked-questions-page.frequently-asked-questions-page': ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage;
+      'api::friday-night-lights-mile-page.friday-night-lights-mile-page': ApiFridayNightLightsMilePageFridayNightLightsMilePage;
       'api::global.global': ApiGlobalGlobal;
       'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
