@@ -51,6 +51,17 @@ export interface SharedQuote extends Schema.Component {
   };
 }
 
+export interface SharedPlace extends Schema.Component {
+  collectionName: 'components_shared_places';
+  info: {
+    displayName: 'Place';
+  };
+  attributes: {
+    name: Attribute.RichText;
+    map: Attribute.String;
+  };
+}
+
 export interface SharedNameTimeComponent extends Schema.Component {
   collectionName: 'components_shared_name_time_components';
   info: {
@@ -236,7 +247,7 @@ export interface NextjsDateTimePlace extends Schema.Component {
     componentId: Attribute.String;
     date: Attribute.Component<'shared.date-component', true>;
     time: Attribute.Component<'shared.name-time-component', true>;
-    place: Attribute.RichText;
+    place: Attribute.Component<'shared.place'>;
   };
 }
 
@@ -247,6 +258,7 @@ declare module '@strapi/types' {
       'shared.seo': SharedSeo;
       'shared.rich-text': SharedRichText;
       'shared.quote': SharedQuote;
+      'shared.place': SharedPlace;
       'shared.name-time-component': SharedNameTimeComponent;
       'shared.media': SharedMedia;
       'shared.date-component': SharedDateComponent;

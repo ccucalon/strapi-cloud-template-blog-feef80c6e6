@@ -20,7 +20,9 @@
       "component": "shared.name-time-component"
     },
     "place": {
-      "type": "richtext"
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.place"
     }
   }
 }

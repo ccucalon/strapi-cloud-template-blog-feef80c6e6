@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_places",
+  "info": {
+    "displayName": "Place"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "richtext"
+    },
+    "map": {
+      "type": "string"
+    }
+  }
+}
