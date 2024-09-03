@@ -4,7 +4,8 @@
   "info": {
     "singularName": "all-events-page",
     "pluralName": "all-events-pages",
-    "displayName": "All Events Page"
+    "displayName": "All Events Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -74,6 +75,16 @@
         }
       },
       "component": "nextjs.two-column-page-header"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.metadata"
     }
   }
 }

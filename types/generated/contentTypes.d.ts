@@ -794,6 +794,7 @@ export interface ApiAllEventsPageAllEventsPage extends Schema.SingleType {
     singularName: 'all-events-page';
     pluralName: 'all-events-pages';
     displayName: 'All Events Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -835,6 +836,12 @@ export interface ApiAllEventsPageAllEventsPage extends Schema.SingleType {
         };
       }>;
     friday: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Attribute.Component<'nextjs.metadata'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
