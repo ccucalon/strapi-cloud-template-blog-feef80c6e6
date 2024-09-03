@@ -1104,14 +1104,54 @@ export interface ApiFridayNightLightsMilePageFridayNightLightsMilePage
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    hero: Attribute.Component<'nextjs.two-column-page-header'>;
-    date: Attribute.Component<'nextjs.date-time-place', true>;
-    participants: Attribute.Component<'nextjs.two-column-layout'>;
-    divisions: Attribute.Component<'nextjs.two-column-layout'>;
-    race: Attribute.Component<'nextjs.two-column-layout'>;
-    seo: Attribute.Component<'nextjs.metadata'>;
-    divisionsTable: Attribute.JSON;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    date: Attribute.Component<'nextjs.date-time-place', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    participants: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    divisions: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    race: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    divisionsTable: Attribute.JSON &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1127,6 +1167,12 @@ export interface ApiFridayNightLightsMilePageFridayNightLightsMilePage
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::friday-night-lights-mile-page.friday-night-lights-mile-page',
+      'oneToMany',
+      'api::friday-night-lights-mile-page.friday-night-lights-mile-page'
+    >;
+    locale: Attribute.String;
   };
 }
 

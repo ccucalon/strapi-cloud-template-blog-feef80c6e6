@@ -10,40 +10,79 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "hero": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.two-column-page-header"
+      "component": "nextjs.two-column-page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "date": {
       "type": "component",
       "repeatable": true,
-      "component": "nextjs.date-time-place"
+      "component": "nextjs.date-time-place",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "participants": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "divisions": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "race": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "nextjs.metadata"
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "divisionsTable": {
-      "type": "json"
+      "type": "json",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
