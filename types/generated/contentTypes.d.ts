@@ -990,6 +990,12 @@ export interface ApiFallFunRunsPageFallFunRunsPage extends Schema.SingleType {
           localized: true;
         };
       }>;
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
