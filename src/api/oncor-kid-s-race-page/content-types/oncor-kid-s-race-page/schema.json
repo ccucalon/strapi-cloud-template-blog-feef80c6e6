@@ -1,0 +1,60 @@
+{
+  "kind": "singleType",
+  "collectionName": "oncor_kid_s_race_pages",
+  "info": {
+    "singularName": "oncor-kid-s-race-page",
+    "pluralName": "oncor-kid-s-race-pages",
+    "displayName": "Oncor Kid's Race Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.metadata"
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-page-header"
+    },
+    "date": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.date-time-place"
+    },
+    "participants": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
+    }
+  }
+}
