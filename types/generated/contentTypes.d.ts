@@ -1437,6 +1437,77 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
   };
 }
 
+export interface ApiHotelAndTravelPageHotelAndTravelPage
+  extends Schema.SingleType {
+  collectionName: 'hotel_and_travel_pages';
+  info: {
+    singularName: 'hotel-and-travel-page';
+    pluralName: 'hotel-and-travel-pages';
+    displayName: 'Hotel and Travel Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    headquarter: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    host: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    travel: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::hotel-and-travel-page.hotel-and-travel-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::hotel-and-travel-page.hotel-and-travel-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::hotel-and-travel-page.hotel-and-travel-page',
+      'oneToMany',
+      'api::hotel-and-travel-page.hotel-and-travel-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiOncorKidSRacePageOncorKidSRacePage
   extends Schema.SingleType {
   collectionName: 'oncor_kid_s_race_pages';
@@ -2048,6 +2119,7 @@ declare module '@strapi/types' {
       'api::health-and-fitness-expo.health-and-fitness-expo': ApiHealthAndFitnessExpoHealthAndFitnessExpo;
       'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::hotel-and-travel-page.hotel-and-travel-page': ApiHotelAndTravelPageHotelAndTravelPage;
       'api::oncor-kid-s-race-page.oncor-kid-s-race-page': ApiOncorKidSRacePageOncorKidSRacePage;
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;
       'api::press-release.press-release': ApiPressReleasePressRelease;
