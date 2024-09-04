@@ -1,0 +1,79 @@
+{
+  "kind": "singleType",
+  "collectionName": "sunday_relays_pages",
+  "info": {
+    "singularName": "sunday-relays-page",
+    "pluralName": "sunday-relays-pages",
+    "displayName": "Sunday Relays Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.metadata"
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-page-header"
+    },
+    "date": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.date-time-place"
+    },
+    "participants": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
+    },
+    "relay": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
+    },
+    "rules": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
+    }
+  }
+}

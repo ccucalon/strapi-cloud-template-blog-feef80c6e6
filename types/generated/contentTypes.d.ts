@@ -1813,6 +1813,82 @@ export interface ApiSundayEventsPageSundayEventsPage extends Schema.SingleType {
   };
 }
 
+export interface ApiSundayRelaysPageSundayRelaysPage extends Schema.SingleType {
+  collectionName: 'sunday_relays_pages';
+  info: {
+    singularName: 'sunday-relays-page';
+    pluralName: 'sunday-relays-pages';
+    displayName: 'Sunday Relays Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    date: Attribute.Component<'nextjs.date-time-place', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    participants: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    relay: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    rules: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::sunday-relays-page.sunday-relays-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::sunday-relays-page.sunday-relays-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::sunday-relays-page.sunday-relays-page',
+      'oneToMany',
+      'api::sunday-relays-page.sunday-relays-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiWeekendSeriesPageWeekendSeriesPage
   extends Schema.SingleType {
   collectionName: 'weekend_series_pages';
@@ -1918,6 +1994,7 @@ declare module '@strapi/types' {
       'api::pricing-tables-json.pricing-tables-json': ApiPricingTablesJsonPricingTablesJson;
       'api::saturday-events-page.saturday-events-page': ApiSaturdayEventsPageSaturdayEventsPage;
       'api::sunday-events-page.sunday-events-page': ApiSundayEventsPageSundayEventsPage;
+      'api::sunday-relays-page.sunday-relays-page': ApiSundayRelaysPageSundayRelaysPage;
       'api::weekend-series-page.weekend-series-page': ApiWeekendSeriesPageWeekendSeriesPage;
     }
   }
