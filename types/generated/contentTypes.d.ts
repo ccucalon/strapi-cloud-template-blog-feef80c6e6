@@ -2019,6 +2019,82 @@ export interface ApiSundayRelaysPageSundayRelaysPage extends Schema.SingleType {
   };
 }
 
+export interface ApiTrainingTipsPageTrainingTipsPage extends Schema.SingleType {
+  collectionName: 'training_tips_pages';
+  info: {
+    singularName: 'training-tips-page';
+    pluralName: 'training-tips-pages';
+    displayName: 'Training Tips Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    started: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    training: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    shoe: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    pain: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::training-tips-page.training-tips-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::training-tips-page.training-tips-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::training-tips-page.training-tips-page',
+      'oneToMany',
+      'api::training-tips-page.training-tips-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiWeekendSeriesPageWeekendSeriesPage
   extends Schema.SingleType {
   collectionName: 'weekend_series_pages';
@@ -2127,6 +2203,7 @@ declare module '@strapi/types' {
       'api::saturday-events-page.saturday-events-page': ApiSaturdayEventsPageSaturdayEventsPage;
       'api::sunday-events-page.sunday-events-page': ApiSundayEventsPageSundayEventsPage;
       'api::sunday-relays-page.sunday-relays-page': ApiSundayRelaysPageSundayRelaysPage;
+      'api::training-tips-page.training-tips-page': ApiTrainingTipsPageTrainingTipsPage;
       'api::weekend-series-page.weekend-series-page': ApiWeekendSeriesPageWeekendSeriesPage;
     }
   }
