@@ -1747,6 +1747,108 @@ export interface ApiPricingTablesJsonPricingTablesJson
   };
 }
 
+export interface ApiRaceWeekendInformationPageRaceWeekendInformationPage
+  extends Schema.SingleType {
+  collectionName: 'race_weekend_information_pages';
+  info: {
+    singularName: 'race-weekend-information-page';
+    pluralName: 'race-weekend-information-pages';
+    displayName: 'Race Weekend Information Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    packet: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    faq: Attribute.Component<'nextjs.faq-component'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    parking: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    gear: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    information: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ucan: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    aid: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    pace: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::race-weekend-information-page.race-weekend-information-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::race-weekend-information-page.race-weekend-information-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::race-weekend-information-page.race-weekend-information-page',
+      'oneToMany',
+      'api::race-weekend-information-page.race-weekend-information-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiSaturdayEventsPageSaturdayEventsPage
   extends Schema.SingleType {
   collectionName: 'saturday_events_pages';
@@ -2200,6 +2302,7 @@ declare module '@strapi/types' {
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;
       'api::press-release.press-release': ApiPressReleasePressRelease;
       'api::pricing-tables-json.pricing-tables-json': ApiPricingTablesJsonPricingTablesJson;
+      'api::race-weekend-information-page.race-weekend-information-page': ApiRaceWeekendInformationPageRaceWeekendInformationPage;
       'api::saturday-events-page.saturday-events-page': ApiSaturdayEventsPageSaturdayEventsPage;
       'api::sunday-events-page.sunday-events-page': ApiSundayEventsPageSundayEventsPage;
       'api::sunday-relays-page.sunday-relays-page': ApiSundayRelaysPageSundayRelaysPage;
