@@ -1652,6 +1652,7 @@ export interface ApiSundayEventsPageSundayEventsPage extends Schema.SingleType {
     singularName: 'sunday-events-page';
     pluralName: 'sunday-events-pages';
     displayName: 'Sunday Events Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1674,7 +1675,7 @@ export interface ApiSundayEventsPageSundayEventsPage extends Schema.SingleType {
           localized: true;
         };
       }>;
-    date: Attribute.Component<'nextjs.date-time-place'> &
+    date: Attribute.Component<'nextjs.date-time-place', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

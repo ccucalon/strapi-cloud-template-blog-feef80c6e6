@@ -4,7 +4,8 @@
   "info": {
     "singularName": "sunday-events-page",
     "pluralName": "sunday-events-pages",
-    "displayName": "Sunday Events Page"
+    "displayName": "Sunday Events Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -37,7 +38,7 @@
     },
     "date": {
       "type": "component",
-      "repeatable": false,
+      "repeatable": true,
       "component": "nextjs.date-time-place",
       "pluginOptions": {
         "i18n": {
