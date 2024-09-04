@@ -1242,6 +1242,65 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiHealthAndFitnessExpoHealthAndFitnessExpo
+  extends Schema.SingleType {
+  collectionName: 'health_and_fitness_expos';
+  info: {
+    singularName: 'health-and-fitness-expo';
+    pluralName: 'health-and-fitness-expos';
+    displayName: 'Health and Fitness Expo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    date: Attribute.Component<'nextjs.date-time-place', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::health-and-fitness-expo.health-and-fitness-expo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::health-and-fitness-expo.health-and-fitness-expo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::health-and-fitness-expo.health-and-fitness-expo',
+      'oneToMany',
+      'api::health-and-fitness-expo.health-and-fitness-expo'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
   collectionName: 'history_pages';
   info: {
@@ -1986,6 +2045,7 @@ declare module '@strapi/types' {
       'api::frequently-asked-questions-page.frequently-asked-questions-page': ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage;
       'api::friday-night-lights-mile-page.friday-night-lights-mile-page': ApiFridayNightLightsMilePageFridayNightLightsMilePage;
       'api::global.global': ApiGlobalGlobal;
+      'api::health-and-fitness-expo.health-and-fitness-expo': ApiHealthAndFitnessExpoHealthAndFitnessExpo;
       'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::oncor-kid-s-race-page.oncor-kid-s-race-page': ApiOncorKidSRacePageOncorKidSRacePage;

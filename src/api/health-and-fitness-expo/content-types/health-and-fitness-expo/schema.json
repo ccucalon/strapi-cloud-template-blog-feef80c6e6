@@ -1,0 +1,49 @@
+{
+  "kind": "singleType",
+  "collectionName": "health_and_fitness_expos",
+  "info": {
+    "singularName": "health-and-fitness-expo",
+    "pluralName": "health-and-fitness-expos",
+    "displayName": "Health and Fitness Expo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.metadata"
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-page-header"
+    },
+    "date": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.date-time-place"
+    }
+  }
+}
