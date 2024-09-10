@@ -1860,6 +1860,71 @@ export interface ApiPricingTablesJsonPricingTablesJson
   };
 }
 
+export interface ApiRaceBeneficiaryPageRaceBeneficiaryPage
+  extends Schema.SingleType {
+  collectionName: 'race_beneficiary_pages';
+  info: {
+    singularName: 'race-beneficiary-page';
+    pluralName: 'race-beneficiary-pages';
+    displayName: 'Race Beneficiary Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    interested: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    banner: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::race-beneficiary-page.race-beneficiary-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::race-beneficiary-page.race-beneficiary-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::race-beneficiary-page.race-beneficiary-page',
+      'oneToMany',
+      'api::race-beneficiary-page.race-beneficiary-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiRaceWeekendAddOnsPageRaceWeekendAddOnsPage
   extends Schema.SingleType {
   collectionName: 'race_weekend_add_ons_pages';
@@ -2506,6 +2571,7 @@ declare module '@strapi/types' {
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;
       'api::press-release.press-release': ApiPressReleasePressRelease;
       'api::pricing-tables-json.pricing-tables-json': ApiPricingTablesJsonPricingTablesJson;
+      'api::race-beneficiary-page.race-beneficiary-page': ApiRaceBeneficiaryPageRaceBeneficiaryPage;
       'api::race-weekend-add-ons-page.race-weekend-add-ons-page': ApiRaceWeekendAddOnsPageRaceWeekendAddOnsPage;
       'api::race-weekend-information-page.race-weekend-information-page': ApiRaceWeekendInformationPageRaceWeekendInformationPage;
       'api::saturday-events-page.saturday-events-page': ApiSaturdayEventsPageSaturdayEventsPage;
