@@ -1020,6 +1020,71 @@ export interface ApiFallFunRunsPageFallFunRunsPage extends Schema.SingleType {
   };
 }
 
+export interface ApiFinisherSClubPageFinisherSClubPage
+  extends Schema.SingleType {
+  collectionName: 'finisher_s_club_pages';
+  info: {
+    singularName: 'finisher-s-club-page';
+    pluralName: 'finisher-s-club-pages';
+    displayName: "Finisher's Club Page";
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    top: Attribute.Component<'nextjs.one-column-narrow'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    middle: Attribute.Component<'nextjs.one-column-narrow'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    bottom: Attribute.Component<'nextjs.one-column-narrow'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::finisher-s-club-page.finisher-s-club-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::finisher-s-club-page.finisher-s-club-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::finisher-s-club-page.finisher-s-club-page',
+      'oneToMany',
+      'api::finisher-s-club-page.finisher-s-club-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage
   extends Schema.SingleType {
   collectionName: 'frequently_asked_questions_pages';
@@ -2380,6 +2445,7 @@ declare module '@strapi/types' {
       'api::author.author': ApiAuthorAuthor;
       'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::fall-fun-runs-page.fall-fun-runs-page': ApiFallFunRunsPageFallFunRunsPage;
+      'api::finisher-s-club-page.finisher-s-club-page': ApiFinisherSClubPageFinisherSClubPage;
       'api::frequently-asked-questions-page.frequently-asked-questions-page': ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage;
       'api::friday-night-lights-mile-page.friday-night-lights-mile-page': ApiFridayNightLightsMilePageFridayNightLightsMilePage;
       'api::global.global': ApiGlobalGlobal;

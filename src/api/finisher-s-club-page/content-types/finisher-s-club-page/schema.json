@@ -1,0 +1,59 @@
+{
+  "kind": "singleType",
+  "collectionName": "finisher_s_club_pages",
+  "info": {
+    "singularName": "finisher-s-club-page",
+    "pluralName": "finisher-s-club-pages",
+    "displayName": "Finisher's Club Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "top": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.one-column-narrow",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "middle": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.one-column-narrow",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "bottom": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.one-column-narrow",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
