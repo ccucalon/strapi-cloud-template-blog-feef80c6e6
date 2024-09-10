@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "modals",
+  "info": {
+    "singularName": "modal",
+    "pluralName": "modals",
+    "displayName": "Modal"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "modal": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.simple-modal-component"
+    }
+  }
+}

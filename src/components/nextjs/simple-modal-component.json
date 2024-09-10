@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_nextjs_simple_modal_components",
+  "info": {
+    "displayName": "Simple Modal Component"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "button": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

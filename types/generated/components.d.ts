@@ -150,6 +150,18 @@ export interface NextjsStaffDirectory extends Schema.Component {
   };
 }
 
+export interface NextjsSimpleModalComponent extends Schema.Component {
+  collectionName: 'components_nextjs_simple_modal_components';
+  info: {
+    displayName: 'Simple Modal Component';
+  };
+  attributes: {
+    title: Attribute.String;
+    button: Attribute.String;
+    content: Attribute.RichText;
+  };
+}
+
 export interface NextjsPastWinner extends Schema.Component {
   collectionName: 'components_nextjs_past_winners';
   info: {
@@ -266,6 +278,7 @@ declare module '@strapi/types' {
       'nextjs.two-column-layout': NextjsTwoColumnLayout;
       'nextjs.timeline': NextjsTimeline;
       'nextjs.staff-directory': NextjsStaffDirectory;
+      'nextjs.simple-modal-component': NextjsSimpleModalComponent;
       'nextjs.past-winner': NextjsPastWinner;
       'nextjs.one-column-narrow': NextjsOneColumnNarrow;
       'nextjs.next-image': NextjsNextImage;

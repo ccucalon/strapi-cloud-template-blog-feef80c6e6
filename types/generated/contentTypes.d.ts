@@ -1680,6 +1680,52 @@ export interface ApiHotelAndTravelPageHotelAndTravelPage
   };
 }
 
+export interface ApiModalModal extends Schema.CollectionType {
+  collectionName: 'modals';
+  info: {
+    singularName: 'modal';
+    pluralName: 'modals';
+    displayName: 'Modal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    modal: Attribute.Component<'nextjs.simple-modal-component'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::modal.modal',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::modal.modal',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::modal.modal',
+      'oneToMany',
+      'api::modal.modal'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiOncorKidSRacePageOncorKidSRacePage
   extends Schema.SingleType {
   collectionName: 'oncor_kid_s_race_pages';
@@ -2693,6 +2739,7 @@ declare module '@strapi/types' {
       'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::hotel-and-travel-page.hotel-and-travel-page': ApiHotelAndTravelPageHotelAndTravelPage;
+      'api::modal.modal': ApiModalModal;
       'api::oncor-kid-s-race-page.oncor-kid-s-race-page': ApiOncorKidSRacePageOncorKidSRacePage;
       'api::organization-page.organization-page': ApiOrganizationPageOrganizationPage;
       'api::press-release.press-release': ApiPressReleasePressRelease;
