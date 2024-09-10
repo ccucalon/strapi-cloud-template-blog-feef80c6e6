@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "certified_results_pages",
+  "info": {
+    "singularName": "certified-results-page",
+    "pluralName": "certified-results-pages",
+    "displayName": "Certified Results Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
