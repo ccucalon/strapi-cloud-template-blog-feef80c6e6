@@ -4,7 +4,8 @@
   "info": {
     "singularName": "certified-results-page",
     "pluralName": "certified-results-pages",
-    "displayName": "Certified Results Page"
+    "displayName": "Certified Results Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -24,6 +25,26 @@
           "localized": true
         }
       }
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-page-header"
+    },
+    "results": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
     }
   }
 }

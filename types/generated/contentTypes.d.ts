@@ -916,6 +916,7 @@ export interface ApiCertifiedResultsPageCertifiedResultsPage
     singularName: 'certified-results-page';
     pluralName: 'certified-results-pages';
     displayName: 'Certified Results Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -927,6 +928,18 @@ export interface ApiCertifiedResultsPageCertifiedResultsPage
   };
   attributes: {
     seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    results: Attribute.Component<'nextjs.two-column-layout'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
