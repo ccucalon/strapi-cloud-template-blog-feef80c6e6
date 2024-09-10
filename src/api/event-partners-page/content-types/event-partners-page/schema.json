@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "event_partners_pages",
+  "info": {
+    "singularName": "event-partners-page",
+    "pluralName": "event-partners-pages",
+    "displayName": "Event Partners Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

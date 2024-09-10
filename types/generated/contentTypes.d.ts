@@ -955,6 +955,54 @@ export interface ApiContactPageContactPage extends Schema.SingleType {
   };
 }
 
+export interface ApiEventPartnersPageEventPartnersPage
+  extends Schema.SingleType {
+  collectionName: 'event_partners_pages';
+  info: {
+    singularName: 'event-partners-page';
+    pluralName: 'event-partners-pages';
+    displayName: 'Event Partners Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::event-partners-page.event-partners-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::event-partners-page.event-partners-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::event-partners-page.event-partners-page',
+      'oneToMany',
+      'api::event-partners-page.event-partners-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiFallFunRunsPageFallFunRunsPage extends Schema.SingleType {
   collectionName: 'fall_fun_runs_pages';
   info: {
@@ -2444,6 +2492,7 @@ declare module '@strapi/types' {
       'api::all-events-page.all-events-page': ApiAllEventsPageAllEventsPage;
       'api::author.author': ApiAuthorAuthor;
       'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::event-partners-page.event-partners-page': ApiEventPartnersPageEventPartnersPage;
       'api::fall-fun-runs-page.fall-fun-runs-page': ApiFallFunRunsPageFallFunRunsPage;
       'api::finisher-s-club-page.finisher-s-club-page': ApiFinisherSClubPageFinisherSClubPage;
       'api::frequently-asked-questions-page.frequently-asked-questions-page': ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage;
