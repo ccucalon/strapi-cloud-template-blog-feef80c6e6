@@ -2116,6 +2116,65 @@ export interface ApiRaceWeekendInformationPageRaceWeekendInformationPage
   };
 }
 
+export interface ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage
+  extends Schema.SingleType {
+  collectionName: 'running_and_walking_clubs_pages';
+  info: {
+    singularName: 'running-and-walking-clubs-page';
+    pluralName: 'running-and-walking-clubs-pages';
+    displayName: 'Running and Walking Clubs Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    clubs: Attribute.Component<'nextjs.two-column-layout', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::running-and-walking-clubs-page.running-and-walking-clubs-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::running-and-walking-clubs-page.running-and-walking-clubs-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::running-and-walking-clubs-page.running-and-walking-clubs-page',
+      'oneToMany',
+      'api::running-and-walking-clubs-page.running-and-walking-clubs-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiSaturdayEventsPageSaturdayEventsPage
   extends Schema.SingleType {
   collectionName: 'saturday_events_pages';
@@ -2574,6 +2633,7 @@ declare module '@strapi/types' {
       'api::race-beneficiary-page.race-beneficiary-page': ApiRaceBeneficiaryPageRaceBeneficiaryPage;
       'api::race-weekend-add-ons-page.race-weekend-add-ons-page': ApiRaceWeekendAddOnsPageRaceWeekendAddOnsPage;
       'api::race-weekend-information-page.race-weekend-information-page': ApiRaceWeekendInformationPageRaceWeekendInformationPage;
+      'api::running-and-walking-clubs-page.running-and-walking-clubs-page': ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage;
       'api::saturday-events-page.saturday-events-page': ApiSaturdayEventsPageSaturdayEventsPage;
       'api::sunday-events-page.sunday-events-page': ApiSundayEventsPageSundayEventsPage;
       'api::sunday-relays-page.sunday-relays-page': ApiSundayRelaysPageSundayRelaysPage;

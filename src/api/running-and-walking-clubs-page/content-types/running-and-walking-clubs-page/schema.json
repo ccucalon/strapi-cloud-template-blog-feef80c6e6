@@ -1,0 +1,49 @@
+{
+  "kind": "singleType",
+  "collectionName": "running_and_walking_clubs_pages",
+  "info": {
+    "singularName": "running-and-walking-clubs-page",
+    "pluralName": "running-and-walking-clubs-pages",
+    "displayName": "Running and Walking Clubs Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "clubs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
