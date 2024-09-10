@@ -1,11 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "certified_results_pages",
+  "collectionName": "certified_results_requests_pages",
   "info": {
-    "singularName": "certified-results-page",
-    "pluralName": "certified-results-pages",
-    "displayName": "Certified Results Page",
-    "description": ""
+    "singularName": "certified-results-requests-page",
+    "pluralName": "certified-results-requests-pages",
+    "displayName": "Certified Results Requests Page"
   },
   "options": {
     "draftAndPublish": true
@@ -29,22 +28,22 @@
     "hero": {
       "type": "component",
       "repeatable": false,
+      "component": "nextjs.two-column-page-header",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "component": "nextjs.two-column-page-header"
+      }
     },
-    "results": {
+    "dates": {
       "type": "component",
       "repeatable": false,
+      "component": "nextjs.two-column-layout",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "component": "nextjs.two-column-layout"
+      }
     }
   }
 }

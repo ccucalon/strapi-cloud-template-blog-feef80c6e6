@@ -909,14 +909,13 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
   };
 }
 
-export interface ApiCertifiedResultsPageCertifiedResultsPage
+export interface ApiCertifiedResultsRequestsPageCertifiedResultsRequestsPage
   extends Schema.SingleType {
-  collectionName: 'certified_results_pages';
+  collectionName: 'certified_results_requests_pages';
   info: {
-    singularName: 'certified-results-page';
-    pluralName: 'certified-results-pages';
-    displayName: 'Certified Results Page';
-    description: '';
+    singularName: 'certified-results-requests-page';
+    pluralName: 'certified-results-requests-pages';
+    displayName: 'Certified Results Requests Page';
   };
   options: {
     draftAndPublish: true;
@@ -939,7 +938,7 @@ export interface ApiCertifiedResultsPageCertifiedResultsPage
           localized: true;
         };
       }>;
-    results: Attribute.Component<'nextjs.two-column-layout'> &
+    dates: Attribute.Component<'nextjs.two-column-layout'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -949,21 +948,21 @@ export interface ApiCertifiedResultsPageCertifiedResultsPage
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::certified-results-page.certified-results-page',
+      'api::certified-results-requests-page.certified-results-requests-page',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::certified-results-page.certified-results-page',
+      'api::certified-results-requests-page.certified-results-requests-page',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     localizations: Attribute.Relation<
-      'api::certified-results-page.certified-results-page',
+      'api::certified-results-requests-page.certified-results-requests-page',
       'oneToMany',
-      'api::certified-results-page.certified-results-page'
+      'api::certified-results-requests-page.certified-results-requests-page'
     >;
     locale: Attribute.String;
   };
@@ -2682,7 +2681,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::all-events-page.all-events-page': ApiAllEventsPageAllEventsPage;
       'api::author.author': ApiAuthorAuthor;
-      'api::certified-results-page.certified-results-page': ApiCertifiedResultsPageCertifiedResultsPage;
+      'api::certified-results-requests-page.certified-results-requests-page': ApiCertifiedResultsRequestsPageCertifiedResultsRequestsPage;
       'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::event-partners-page.event-partners-page': ApiEventPartnersPageEventPartnersPage;
       'api::fall-fun-runs-page.fall-fun-runs-page': ApiFallFunRunsPageFallFunRunsPage;
