@@ -2123,6 +2123,7 @@ export interface ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage
     singularName: 'running-and-walking-clubs-page';
     pluralName: 'running-and-walking-clubs-pages';
     displayName: 'Running and Walking Clubs Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -2146,6 +2147,12 @@ export interface ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage
         };
       }>;
     clubs: Attribute.Component<'nextjs.two-column-layout', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    banner: Attribute.RichText &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

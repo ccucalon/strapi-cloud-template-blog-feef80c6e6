@@ -4,7 +4,8 @@
   "info": {
     "singularName": "running-and-walking-clubs-page",
     "pluralName": "running-and-walking-clubs-pages",
-    "displayName": "Running and Walking Clubs Page"
+    "displayName": "Running and Walking Clubs Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -44,6 +45,14 @@
           "localized": true
         }
       }
+    },
+    "banner": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
     }
   }
 }
