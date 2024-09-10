@@ -2116,6 +2116,64 @@ export interface ApiRaceWeekendInformationPageRaceWeekendInformationPage
   };
 }
 
+export interface ApiResultsPageResultsPage extends Schema.SingleType {
+  collectionName: 'results_pages';
+  info: {
+    singularName: 'results-page';
+    pluralName: 'results-pages';
+    displayName: 'Results Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    seo: Attribute.Component<'nextjs.metadata'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Attribute.Component<'nextjs.two-column-page-header'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    results: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::results-page.results-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::results-page.results-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::results-page.results-page',
+      'oneToMany',
+      'api::results-page.results-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage
   extends Schema.SingleType {
   collectionName: 'running_and_walking_clubs_pages';
@@ -2640,6 +2698,7 @@ declare module '@strapi/types' {
       'api::race-beneficiary-page.race-beneficiary-page': ApiRaceBeneficiaryPageRaceBeneficiaryPage;
       'api::race-weekend-add-ons-page.race-weekend-add-ons-page': ApiRaceWeekendAddOnsPageRaceWeekendAddOnsPage;
       'api::race-weekend-information-page.race-weekend-information-page': ApiRaceWeekendInformationPageRaceWeekendInformationPage;
+      'api::results-page.results-page': ApiResultsPageResultsPage;
       'api::running-and-walking-clubs-page.running-and-walking-clubs-page': ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage;
       'api::saturday-events-page.saturday-events-page': ApiSaturdayEventsPageSaturdayEventsPage;
       'api::sunday-events-page.sunday-events-page': ApiSundayEventsPageSundayEventsPage;

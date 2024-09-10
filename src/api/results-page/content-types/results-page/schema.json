@@ -1,0 +1,49 @@
+{
+  "kind": "singleType",
+  "collectionName": "results_pages",
+  "info": {
+    "singularName": "results-page",
+    "pluralName": "results-pages",
+    "displayName": "Results Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.metadata",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-page-header",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "results": {
+      "type": "component",
+      "repeatable": false,
+      "component": "nextjs.two-column-layout",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
