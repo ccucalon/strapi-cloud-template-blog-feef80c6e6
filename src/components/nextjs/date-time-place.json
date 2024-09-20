@@ -23,6 +23,10 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.place"
+    },
+    "soldOut": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -260,6 +260,7 @@ export interface NextjsDateTimePlace extends Schema.Component {
     date: Attribute.Component<'shared.date-component', true>;
     time: Attribute.Component<'shared.name-time-component', true>;
     place: Attribute.Component<'shared.place'>;
+    soldOut: Attribute.Boolean & Attribute.DefaultTo<false>;
   };
 }
 
