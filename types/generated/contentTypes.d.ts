@@ -1972,6 +1972,7 @@ export interface ApiRaceBeneficiaryPageRaceBeneficiaryPage
     singularName: 'race-beneficiary-page';
     pluralName: 'race-beneficiary-pages';
     displayName: 'Race Beneficiary Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -2001,6 +2002,12 @@ export interface ApiRaceBeneficiaryPageRaceBeneficiaryPage
         };
       }>;
     banner: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ambassador: Attribute.Component<'nextjs.two-column-layout', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

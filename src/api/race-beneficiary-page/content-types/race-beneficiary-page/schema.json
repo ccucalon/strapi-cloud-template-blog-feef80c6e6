@@ -4,7 +4,8 @@
   "info": {
     "singularName": "race-beneficiary-page",
     "pluralName": "race-beneficiary-pages",
-    "displayName": "Race Beneficiary Page"
+    "displayName": "Race Beneficiary Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -52,6 +53,16 @@
           "localized": true
         }
       }
+    },
+    "ambassador": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
     }
   }
 }
