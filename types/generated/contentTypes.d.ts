@@ -2466,6 +2466,12 @@ export interface ApiSundayEventsPageSundayEventsPage extends Schema.SingleType {
           localized: true;
         };
       }>;
+    rcca: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

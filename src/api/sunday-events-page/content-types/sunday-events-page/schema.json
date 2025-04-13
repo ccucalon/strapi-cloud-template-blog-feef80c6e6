@@ -115,6 +115,16 @@
           "localized": true
         }
       }
+    },
+    "rcca": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
     }
   }
 }
