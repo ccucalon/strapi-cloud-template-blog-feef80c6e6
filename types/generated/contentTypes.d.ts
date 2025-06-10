@@ -1616,6 +1616,7 @@ export interface ApiHotelAndTravelPageHotelAndTravelPage
     singularName: 'hotel-and-travel-page';
     pluralName: 'hotel-and-travel-pages';
     displayName: 'Hotel and Travel Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1651,6 +1652,12 @@ export interface ApiHotelAndTravelPageHotelAndTravelPage
         };
       }>;
     travel: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    stays: Attribute.Component<'nextjs.two-column-layout', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

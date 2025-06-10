@@ -4,7 +4,8 @@
   "info": {
     "singularName": "hotel-and-travel-page",
     "pluralName": "hotel-and-travel-pages",
-    "displayName": "Hotel and Travel Page"
+    "displayName": "Hotel and Travel Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -58,6 +59,16 @@
     "travel": {
       "type": "component",
       "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout"
+    },
+    "stays": {
+      "type": "component",
+      "repeatable": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
