@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "running_clubs",
+  "info": {
+    "singularName": "running-club",
+    "pluralName": "running-clubs",
+    "displayName": "Running Club"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Website": {
+      "type": "string"
+    },
+    "running_club_events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::running-club-event.running-club-event",
+      "mappedBy": "running_club"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "running_club_events",
+  "info": {
+    "singularName": "running-club-event",
+    "pluralName": "running-club-events",
+    "displayName": "Running Club Event"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "Date": {
+      "type": "datetime"
+    },
+    "running_club": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::running-club.running-club",
+      "inversedBy": "running_club_events"
+    }
+  }
+}
