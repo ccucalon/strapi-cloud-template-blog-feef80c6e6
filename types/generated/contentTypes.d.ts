@@ -1879,12 +1879,18 @@ export interface ApiRunningClubEventRunningClubEvent
   extends Schema.CollectionType {
   collectionName: 'running_club_events';
   info: {
+    description: '';
     displayName: 'Running Club Event';
     pluralName: 'running-club-events';
     singularName: 'running-club-event';
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
   };
   attributes: {
     createdAt: Attribute.DateTime;
@@ -1894,9 +1900,30 @@ export interface ApiRunningClubEventRunningClubEvent
       'admin::user'
     > &
       Attribute.Private;
-    Date: Attribute.DateTime;
-    Description: Attribute.RichText;
-    Name: Attribute.String;
+    Date: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Description: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Attribute.String;
+    localizations: Attribute.Relation<
+      'api::running-club-event.running-club-event',
+      'oneToMany',
+      'api::running-club-event.running-club-event'
+    >;
+    Name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Attribute.DateTime;
     running_club: Attribute.Relation<
       'api::running-club-event.running-club-event',
@@ -1924,8 +1951,18 @@ export interface ApiRunningClubRunningClub extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    clubId: Attribute.String;
+    clubId: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::running-club.running-club',
@@ -1933,9 +1970,30 @@ export interface ApiRunningClubRunningClub extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
-    Description: Attribute.RichText;
-    Image: Attribute.Component<'nextjs.next-image', true>;
-    Name: Attribute.String;
+    Description: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Image: Attribute.Component<'nextjs.next-image', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Attribute.String;
+    localizations: Attribute.Relation<
+      'api::running-club.running-club',
+      'oneToMany',
+      'api::running-club.running-club'
+    >;
+    Name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Attribute.DateTime;
     running_club_events: Attribute.Relation<
       'api::running-club.running-club',
@@ -1949,7 +2007,12 @@ export interface ApiRunningClubRunningClub extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
-    Website: Attribute.String;
+    Website: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
   };
 }
 
