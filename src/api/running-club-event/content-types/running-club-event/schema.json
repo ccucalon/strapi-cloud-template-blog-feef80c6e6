@@ -45,6 +45,24 @@
       "relation": "manyToOne",
       "target": "api::running-club.running-club",
       "inversedBy": "running_club_events"
+    },
+    "Address": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.address"
+    },
+    "Link": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }

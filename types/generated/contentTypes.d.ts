@@ -1893,6 +1893,12 @@ export interface ApiRunningClubEventRunningClubEvent
     };
   };
   attributes: {
+    Address: Attribute.Component<'nextjs.address'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::running-club-event.running-club-event',
@@ -1907,6 +1913,12 @@ export interface ApiRunningClubEventRunningClubEvent
         };
       }>;
     Description: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Link: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

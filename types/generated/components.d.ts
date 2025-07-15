@@ -1,5 +1,22 @@
 import type { Attribute, Schema } from '@strapi/strapi';
 
+export interface NextjsAddress extends Schema.Component {
+  collectionName: 'components_nextjs_addresses';
+  info: {
+    description: '';
+    displayName: 'Address';
+  };
+  attributes: {
+    Address1: Attribute.String;
+    Address2: Attribute.String;
+    City: Attribute.String;
+    LocationLink: Attribute.String;
+    LocationName: Attribute.String;
+    State: Attribute.String;
+    ZipCode: Attribute.String;
+  };
+}
+
 export interface NextjsDateTimePlace extends Schema.Component {
   collectionName: 'components_nextjs_date_time_places';
   info: {
@@ -267,6 +284,7 @@ export interface SharedSlider extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'nextjs.address': NextjsAddress;
       'nextjs.date-time-place': NextjsDateTimePlace;
       'nextjs.divisions': NextjsDivisions;
       'nextjs.faq': NextjsFaq;
