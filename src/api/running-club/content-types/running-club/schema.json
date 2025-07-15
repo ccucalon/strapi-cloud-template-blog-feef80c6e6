@@ -4,7 +4,8 @@
   "info": {
     "singularName": "running-club",
     "pluralName": "running-clubs",
-    "displayName": "Running Club"
+    "displayName": "Running Club",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,6 +23,17 @@
       "relation": "oneToMany",
       "target": "api::running-club-event.running-club-event",
       "mappedBy": "running_club"
+    },
+    "clubId": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "Image": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nextjs.next-image"
     }
   }
 }

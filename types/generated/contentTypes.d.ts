@@ -1916,6 +1916,7 @@ export interface ApiRunningClubEventRunningClubEvent
 export interface ApiRunningClubRunningClub extends Schema.CollectionType {
   collectionName: 'running_clubs';
   info: {
+    description: '';
     displayName: 'Running Club';
     pluralName: 'running-clubs';
     singularName: 'running-club';
@@ -1924,6 +1925,7 @@ export interface ApiRunningClubRunningClub extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
+    clubId: Attribute.String;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::running-club.running-club',
@@ -1931,6 +1933,8 @@ export interface ApiRunningClubRunningClub extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    Description: Attribute.RichText;
+    Image: Attribute.Component<'nextjs.next-image', true>;
     Name: Attribute.String;
     publishedAt: Attribute.DateTime;
     running_club_events: Attribute.Relation<
