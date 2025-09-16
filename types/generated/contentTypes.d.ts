@@ -609,6 +609,7 @@ export interface ApiEliteAmbassadorEliteAmbassador extends Schema.SingleType {
       Attribute.Private;
     hero: Attribute.Component<'nextjs.two-column-layout'>;
     publishedAt: Attribute.DateTime;
+    seo: Attribute.Component<'shared.seo', true>;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::elite-ambassador.elite-ambassador',

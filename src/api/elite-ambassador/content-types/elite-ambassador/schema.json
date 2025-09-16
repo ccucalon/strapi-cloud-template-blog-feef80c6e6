@@ -16,6 +16,11 @@
       "type": "component",
       "repeatable": false,
       "component": "nextjs.two-column-layout"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.seo"
     }
   }
 }
