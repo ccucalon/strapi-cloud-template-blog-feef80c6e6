@@ -588,6 +588,37 @@ export interface ApiContactPageContactPage extends Schema.SingleType {
   };
 }
 
+export interface ApiEliteAmbassadorEliteAmbassador extends Schema.SingleType {
+  collectionName: 'elite_ambassadors';
+  info: {
+    description: '';
+    displayName: 'Elite Ambassador';
+    pluralName: 'elite-ambassadors';
+    singularName: 'elite-ambassador';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::elite-ambassador.elite-ambassador',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    hero: Attribute.Component<'nextjs.two-column-layout'>;
+    publishedAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::elite-ambassador.elite-ambassador',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiEventPartnersPageEventPartnersPage
   extends Schema.SingleType {
   collectionName: 'event_partners_pages';
@@ -2894,6 +2925,7 @@ declare module '@strapi/types' {
       'api::author.author': ApiAuthorAuthor;
       'api::certified-results-requests-page.certified-results-requests-page': ApiCertifiedResultsRequestsPageCertifiedResultsRequestsPage;
       'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::elite-ambassador.elite-ambassador': ApiEliteAmbassadorEliteAmbassador;
       'api::event-partners-page.event-partners-page': ApiEventPartnersPageEventPartnersPage;
       'api::fall-fun-runs-page.fall-fun-runs-page': ApiFallFunRunsPageFallFunRunsPage;
       'api::finisher-s-club-page.finisher-s-club-page': ApiFinisherSClubPageFinisherSClubPage;
