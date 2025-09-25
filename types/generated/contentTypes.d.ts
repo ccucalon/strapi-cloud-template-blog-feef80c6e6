@@ -599,6 +599,11 @@ export interface ApiEliteAmbassadorEliteAmbassador extends Schema.SingleType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -607,9 +612,25 @@ export interface ApiEliteAmbassadorEliteAmbassador extends Schema.SingleType {
       'admin::user'
     > &
       Attribute.Private;
-    hero: Attribute.Component<'nextjs.two-column-layout'>;
+    hero: Attribute.Component<'nextjs.two-column-layout'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Attribute.String;
+    localizations: Attribute.Relation<
+      'api::elite-ambassador.elite-ambassador',
+      'oneToMany',
+      'api::elite-ambassador.elite-ambassador'
+    >;
     publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'shared.seo', true>;
+    seo: Attribute.Component<'shared.seo', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::elite-ambassador.elite-ambassador',
