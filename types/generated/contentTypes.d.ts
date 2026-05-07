@@ -1,6 +1,6 @@
-import type { Attribute, Schema } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface AdminApiToken extends Schema.CollectionType {
+export interface AdminApiToken extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_api_tokens';
   info: {
     description: '';
@@ -9,6 +9,9 @@ export interface AdminApiToken extends Schema.CollectionType {
     pluralName: 'api-tokens';
     singularName: 'api-token';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -18,51 +21,57 @@ export interface AdminApiToken extends Schema.CollectionType {
     };
   };
   attributes: {
-    accessKey: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    accessKey: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::api-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    description: Attribute.String &
-      Attribute.SetMinMaxLength<{
+    adminPermissions: Schema.Attribute.Relation<
+      'oneToMany',
+      'admin::permission'
+    >;
+    adminUserOwner: Schema.Attribute.Relation<'manyToOne', 'admin::user'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }> &
-      Attribute.DefaultTo<''>;
-    expiresAt: Attribute.DateTime;
-    lastUsedAt: Attribute.DateTime;
-    lifespan: Attribute.BigInteger;
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
+      Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    permissions: Attribute.Relation<
-      'admin::api-token',
+    expiresAt: Schema.Attribute.DateTime;
+    kind: Schema.Attribute.Enumeration<['content-api', 'admin']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'content-api'>;
+    lastUsedAt: Schema.Attribute.DateTime;
+    lifespan: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::api-token'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    permissions: Schema.Attribute.Relation<
       'oneToMany',
       'admin::api-token-permission'
     >;
-    type: Attribute.Enumeration<['read-only', 'full-access', 'custom']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'read-only'>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'admin::api-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.Enumeration<['read-only', 'full-access', 'custom']> &
+      Schema.Attribute.DefaultTo<'read-only'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminApiTokenPermission extends Schema.CollectionType {
+export interface AdminApiTokenPermission extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_api_token_permissions';
   info: {
     description: '';
@@ -71,6 +80,9 @@ export interface AdminApiTokenPermission extends Schema.CollectionType {
     pluralName: 'api-token-permissions';
     singularName: 'api-token-permission';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -80,34 +92,29 @@ export interface AdminApiTokenPermission extends Schema.CollectionType {
     };
   };
   attributes: {
-    action: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    action: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::api-token-permission',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'admin::api-token-permission'
     > &
-      Attribute.Private;
-    token: Attribute.Relation<
-      'admin::api-token-permission',
-      'manyToOne',
-      'admin::api-token'
-    >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'admin::api-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    token: Schema.Attribute.Relation<'manyToOne', 'admin::api-token'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminPermission extends Schema.CollectionType {
+export interface AdminPermission extends Struct.CollectionTypeSchema {
   collectionName: 'admin_permissions';
   info: {
     description: '';
@@ -116,6 +123,9 @@ export interface AdminPermission extends Schema.CollectionType {
     pluralName: 'permissions';
     singularName: 'permission';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -125,37 +135,34 @@ export interface AdminPermission extends Schema.CollectionType {
     };
   };
   attributes: {
-    action: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    action: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    actionParameters: Attribute.JSON & Attribute.DefaultTo<{}>;
-    conditions: Attribute.JSON & Attribute.DefaultTo<[]>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    properties: Attribute.JSON & Attribute.DefaultTo<{}>;
-    role: Attribute.Relation<'admin::permission', 'manyToOne', 'admin::role'>;
-    subject: Attribute.String &
-      Attribute.SetMinMaxLength<{
+    actionParameters: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<{}>;
+    apiToken: Schema.Attribute.Relation<'manyToOne', 'admin::api-token'>;
+    conditions: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::permission'> &
+      Schema.Attribute.Private;
+    properties: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<{}>;
+    publishedAt: Schema.Attribute.DateTime;
+    role: Schema.Attribute.Relation<'manyToOne', 'admin::role'>;
+    subject: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'admin::permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminRole extends Schema.CollectionType {
+export interface AdminRole extends Struct.CollectionTypeSchema {
   collectionName: 'admin_roles';
   info: {
     description: '';
@@ -164,6 +171,9 @@ export interface AdminRole extends Schema.CollectionType {
     pluralName: 'roles';
     singularName: 'role';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -173,35 +183,92 @@ export interface AdminRole extends Schema.CollectionType {
     };
   };
   attributes: {
-    code: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'admin::role', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    description: Attribute.String;
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::role'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    permissions: Attribute.Relation<
-      'admin::role',
-      'oneToMany',
-      'admin::permission'
-    >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<'admin::role', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    users: Attribute.Relation<'admin::role', 'manyToMany', 'admin::user'>;
+    permissions: Schema.Attribute.Relation<'oneToMany', 'admin::permission'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<'manyToMany', 'admin::user'>;
   };
 }
 
-export interface AdminTransferToken extends Schema.CollectionType {
+export interface AdminSession extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_sessions';
+  info: {
+    description: 'Session Manager storage';
+    displayName: 'Session';
+    name: 'Session';
+    pluralName: 'sessions';
+    singularName: 'session';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+    i18n: {
+      localized: false;
+    };
+  };
+  attributes: {
+    absoluteExpiresAt: Schema.Attribute.DateTime & Schema.Attribute.Private;
+    childId: Schema.Attribute.String & Schema.Attribute.Private;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deviceId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    expiresAt: Schema.Attribute.DateTime &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::session'> &
+      Schema.Attribute.Private;
+    origin: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.Unique;
+    status: Schema.Attribute.String & Schema.Attribute.Private;
+    type: Schema.Attribute.String & Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface AdminTransferToken extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_transfer_tokens';
   info: {
     description: '';
@@ -210,6 +277,9 @@ export interface AdminTransferToken extends Schema.CollectionType {
     pluralName: 'transfer-tokens';
     singularName: 'transfer-token';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -219,48 +289,47 @@ export interface AdminTransferToken extends Schema.CollectionType {
     };
   };
   attributes: {
-    accessKey: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    accessKey: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::transfer-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    description: Attribute.String &
-      Attribute.SetMinMaxLength<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }> &
-      Attribute.DefaultTo<''>;
-    expiresAt: Attribute.DateTime;
-    lastUsedAt: Attribute.DateTime;
-    lifespan: Attribute.BigInteger;
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
+      Schema.Attribute.DefaultTo<''>;
+    expiresAt: Schema.Attribute.DateTime;
+    lastUsedAt: Schema.Attribute.DateTime;
+    lifespan: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'admin::transfer-token'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    permissions: Attribute.Relation<
-      'admin::transfer-token',
+    permissions: Schema.Attribute.Relation<
       'oneToMany',
       'admin::transfer-token-permission'
     >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'admin::transfer-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminTransferTokenPermission extends Schema.CollectionType {
+export interface AdminTransferTokenPermission
+  extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_transfer_token_permissions';
   info: {
     description: '';
@@ -269,6 +338,9 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
     pluralName: 'transfer-token-permissions';
     singularName: 'transfer-token-permission';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -278,34 +350,29 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
     };
   };
   attributes: {
-    action: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    action: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::transfer-token-permission',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'admin::transfer-token-permission'
     > &
-      Attribute.Private;
-    token: Attribute.Relation<
-      'admin::transfer-token-permission',
-      'manyToOne',
-      'admin::transfer-token'
-    >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'admin::transfer-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    token: Schema.Attribute.Relation<'manyToOne', 'admin::transfer-token'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminUser extends Schema.CollectionType {
+export interface AdminUser extends Struct.CollectionTypeSchema {
   collectionName: 'admin_users';
   info: {
     description: '';
@@ -314,6 +381,9 @@ export interface AdminUser extends Schema.CollectionType {
     pluralName: 'users';
     singularName: 'user';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -323,46 +393,54 @@ export interface AdminUser extends Schema.CollectionType {
     };
   };
   attributes: {
-    blocked: Attribute.Boolean & Attribute.Private & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'admin::user', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    email: Attribute.Email &
-      Attribute.Required &
-      Attribute.Private &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
+    apiTokens: Schema.Attribute.Relation<'oneToMany', 'admin::api-token'> &
+      Schema.Attribute.Private;
+    blocked: Schema.Attribute.Boolean &
+      Schema.Attribute.Private &
+      Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    firstname: Attribute.String &
-      Attribute.SetMinMaxLength<{
+    firstname: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    isActive: Attribute.Boolean &
-      Attribute.Private &
-      Attribute.DefaultTo<false>;
-    lastname: Attribute.String &
-      Attribute.SetMinMaxLength<{
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.Private &
+      Schema.Attribute.DefaultTo<false>;
+    lastname: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    password: Attribute.Password &
-      Attribute.Private &
-      Attribute.SetMinMaxLength<{
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::user'> &
+      Schema.Attribute.Private;
+    password: Schema.Attribute.Password &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    preferedLanguage: Attribute.String;
-    registrationToken: Attribute.String & Attribute.Private;
-    resetPasswordToken: Attribute.String & Attribute.Private;
-    roles: Attribute.Relation<'admin::user', 'manyToMany', 'admin::role'> &
-      Attribute.Private;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<'admin::user', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    username: Attribute.String;
+    preferedLanguage: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    registrationToken: Schema.Attribute.String & Schema.Attribute.Private;
+    resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    roles: Schema.Attribute.Relation<'manyToMany', 'admin::role'> &
+      Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String;
   };
 }
 
-export interface ApiAllEventsPageAllEventsPage extends Schema.SingleType {
+export interface ApiAllEventsPageAllEventsPage extends Struct.SingleTypeSchema {
   collectionName: 'all_events_pages';
   info: {
     description: '';
@@ -379,65 +457,62 @@ export interface ApiAllEventsPageAllEventsPage extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::all-events-page.all-events-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    friday: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    friday: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::all-events-page.all-events-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::all-events-page.all-events-page'
     >;
-    oncor: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    oncor: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    relays: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    relays: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    saturday: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    sunday: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::all-events-page.all-events-page',
-      'oneToOne',
-      'admin::user'
+    saturday: Schema.Attribute.Component<
+      'nextjs.two-column-page-header',
+      false
     > &
-      Attribute.Private;
-    weekend: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    sunday: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    weekend: Schema.Attribute.Component<
+      'nextjs.two-column-page-header',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
@@ -445,7 +520,7 @@ export interface ApiAllEventsPageAllEventsPage extends Schema.SingleType {
   };
 }
 
-export interface ApiAuthorAuthor extends Schema.CollectionType {
+export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   collectionName: 'authors';
   info: {
     description: 'Create authors for your content';
@@ -457,34 +532,32 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    avatar: Attribute.Media<'images' | 'files' | 'videos'>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::author.author',
-      'oneToOne',
-      'admin::user'
+    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::author.author'
     > &
-      Attribute.Private;
-    email: Attribute.String;
-    name: Attribute.String;
-    phone: Attribute.String;
-    press_releases: Attribute.Relation<
-      'api::author.author',
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    press_releases: Schema.Attribute.Relation<
       'oneToMany',
       'api::press-release.press-release'
     >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::author.author',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiCertifiedResultsRequestsPageCertifiedResultsRequestsPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'certified_results_requests_pages';
   info: {
     displayName: 'Certified Results Requests Page';
@@ -500,49 +573,40 @@ export interface ApiCertifiedResultsRequestsPageCertifiedResultsRequestsPage
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::certified-results-requests-page.certified-results-requests-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    dates: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dates: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::certified-results-requests-page.certified-results-requests-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::certified-results-requests-page.certified-results-requests-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::certified-results-requests-page.certified-results-requests-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiContactPageContactPage extends Schema.SingleType {
+export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   collectionName: 'contact_pages';
   info: {
     displayName: 'Contact Page';
@@ -558,37 +622,29 @@ export interface ApiContactPageContactPage extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::contact-page.contact-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::contact-page.contact-page',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::contact-page.contact-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'shared.seo'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::contact-page.contact-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiEliteAmbassadorEliteAmbassador extends Schema.SingleType {
+export interface ApiEliteAmbassadorEliteAmbassador
+  extends Struct.SingleTypeSchema {
   collectionName: 'elite_ambassadors';
   info: {
     description: '';
@@ -605,44 +661,35 @@ export interface ApiEliteAmbassadorEliteAmbassador extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::elite-ambassador.elite-ambassador',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    hero: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::elite-ambassador.elite-ambassador',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::elite-ambassador.elite-ambassador'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'shared.seo', true> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::elite-ambassador.elite-ambassador',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiEventPartnersPageEventPartnersPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'event_partners_pages';
   info: {
     description: '';
@@ -659,37 +706,29 @@ export interface ApiEventPartnersPageEventPartnersPage
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::event-partners-page.event-partners-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::event-partners-page.event-partners-page',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::event-partners-page.event-partners-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::event-partners-page.event-partners-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiFallFunRunsPageFallFunRunsPage extends Schema.SingleType {
+export interface ApiFallFunRunsPageFallFunRunsPage
+  extends Struct.SingleTypeSchema {
   collectionName: 'fall_fun_runs_pages';
   info: {
     description: '';
@@ -706,56 +745,47 @@ export interface ApiFallFunRunsPageFallFunRunsPage extends Schema.SingleType {
     };
   };
   attributes: {
-    benefits: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    benefits: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::fall-fun-runs-page.fall-fun-runs-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    dateTimePlace: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dateTimePlace: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::fall-fun-runs-page.fall-fun-runs-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::fall-fun-runs-page.fall-fun-runs-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::fall-fun-runs-page.fall-fun-runs-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiFinisherSClubPageFinisherSClubPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'finisher_s_club_pages';
   info: {
     displayName: "Finisher's Club Page";
@@ -771,56 +801,47 @@ export interface ApiFinisherSClubPageFinisherSClubPage
     };
   };
   attributes: {
-    bottom: Attribute.Component<'nextjs.one-column-narrow'> &
-      Attribute.SetPluginOptions<{
+    bottom: Schema.Attribute.Component<'nextjs.one-column-narrow', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::finisher-s-club-page.finisher-s-club-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::finisher-s-club-page.finisher-s-club-page',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::finisher-s-club-page.finisher-s-club-page'
     >;
-    middle: Attribute.Component<'nextjs.one-column-narrow'> &
-      Attribute.SetPluginOptions<{
+    middle: Schema.Attribute.Component<'nextjs.one-column-narrow', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    top: Attribute.Component<'nextjs.one-column-narrow'> &
-      Attribute.SetPluginOptions<{
+    top: Schema.Attribute.Component<'nextjs.one-column-narrow', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::finisher-s-club-page.finisher-s-club-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'frequently_asked_questions_pages';
   info: {
     description: '';
@@ -837,62 +858,53 @@ export interface ApiFrequentlyAskedQuestionsPageFrequentlyAskedQuestionsPage
     };
   };
   attributes: {
-    corral: Attribute.Component<'nextjs.faq-component'> &
-      Attribute.SetPluginOptions<{
+    corral: Schema.Attribute.Component<'nextjs.faq-component', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::frequently-asked-questions-page.frequently-asked-questions-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    general: Attribute.Component<'nextjs.faq-component'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    general: Schema.Attribute.Component<'nextjs.faq-component', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::frequently-asked-questions-page.frequently-asked-questions-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::frequently-asked-questions-page.frequently-asked-questions-page'
     >;
-    packet: Attribute.Component<'nextjs.faq-component'> &
-      Attribute.SetPluginOptions<{
+    packet: Schema.Attribute.Component<'nextjs.faq-component', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    relays: Attribute.Component<'nextjs.faq-component'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    relays: Schema.Attribute.Component<'nextjs.faq-component', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::frequently-asked-questions-page.frequently-asked-questions-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiFridayNightLightsMilePageFridayNightLightsMilePage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'friday_night_lights_mile_pages';
   info: {
     description: '';
@@ -909,73 +921,67 @@ export interface ApiFridayNightLightsMilePageFridayNightLightsMilePage
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::friday-night-lights-mile-page.friday-night-lights-mile-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    divisions: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    divisions: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    divisionsTable: Attribute.JSON &
-      Attribute.SetPluginOptions<{
+    divisionsTable: Schema.Attribute.JSON &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::friday-night-lights-mile-page.friday-night-lights-mile-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::friday-night-lights-mile-page.friday-night-lights-mile-page'
     >;
-    participants: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Attribute.DateTime;
-    race: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::friday-night-lights-mile-page.friday-night-lights-mile-page',
-      'oneToOne',
-      'admin::user'
+    participants: Schema.Attribute.Component<
+      'nextjs.two-column-layout',
+      false
     > &
-      Attribute.Private;
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    race: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiGlobalGlobal extends Schema.SingleType {
+export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
     description: 'Define global settings';
@@ -992,57 +998,46 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::global.global',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    defaultSeo: Attribute.Component<'shared.seo'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    defaultSeo: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    favicon: Attribute.Media<'images' | 'files' | 'videos'> &
-      Attribute.SetPluginOptions<{
+    favicon: Schema.Attribute.Media<'images' | 'files' | 'videos'> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::global.global',
-      'oneToMany',
-      'api::global.global'
-    >;
-    siteDescription: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::global.global'>;
+    publishedAt: Schema.Attribute.DateTime;
+    siteDescription: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    siteName: Attribute.String &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
+    siteName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::global.global',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiHealthAndFitnessExpoHealthAndFitnessExpo
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'health_and_fitness_expos';
   info: {
     displayName: 'Health and Fitness Expo';
@@ -1058,49 +1053,40 @@ export interface ApiHealthAndFitnessExpoHealthAndFitnessExpo
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::health-and-fitness-expo.health-and-fitness-expo',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::health-and-fitness-expo.health-and-fitness-expo',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::health-and-fitness-expo.health-and-fitness-expo'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::health-and-fitness-expo.health-and-fitness-expo',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
+export interface ApiHistoryPageHistoryPage extends Struct.SingleTypeSchema {
   collectionName: 'history_pages';
   info: {
     description: '';
@@ -1117,59 +1103,53 @@ export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::history-page.history-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    events: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    events: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::history-page.history-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::history-page.history-page'
     >;
-    participants: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    past: Attribute.JSON &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    timeline: Attribute.Component<'nextjs.timeline', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::history-page.history-page',
-      'oneToOne',
-      'admin::user'
+    participants: Schema.Attribute.Component<
+      'nextjs.two-column-layout',
+      false
     > &
-      Attribute.Private;
-    winners: Attribute.Component<'nextjs.past-winner', true> &
-      Attribute.SetPluginOptions<{
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    past: Schema.Attribute.JSON &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    timeline: Schema.Attribute.Component<'nextjs.timeline', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    winners: Schema.Attribute.Component<'nextjs.past-winner', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
@@ -1177,7 +1157,7 @@ export interface ApiHistoryPageHistoryPage extends Schema.SingleType {
   };
 }
 
-export interface ApiHomepageHomepage extends Schema.SingleType {
+export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages';
   info: {
     description: '';
@@ -1194,50 +1174,41 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::homepage.homepage',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    description: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::homepage.homepage',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::homepage.homepage'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::homepage.homepage',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiHotelAndTravelPageHotelAndTravelPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'hotel_and_travel_pages';
   info: {
     description: '';
@@ -1254,67 +1225,58 @@ export interface ApiHotelAndTravelPageHotelAndTravelPage
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::hotel-and-travel-page.hotel-and-travel-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    headquarter: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    headquarter: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    host: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    host: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::hotel-and-travel-page.hotel-and-travel-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::hotel-and-travel-page.hotel-and-travel-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    stays: Attribute.Component<'nextjs.two-column-layout', true> &
-      Attribute.SetPluginOptions<{
+    stays: Schema.Attribute.Component<'nextjs.two-column-layout', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    travel: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    travel: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::hotel-and-travel-page.hotel-and-travel-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiModalModal extends Schema.CollectionType {
+export interface ApiModalModal extends Struct.CollectionTypeSchema {
   collectionName: 'modals';
   info: {
     displayName: 'Modal';
@@ -1330,38 +1292,26 @@ export interface ApiModalModal extends Schema.CollectionType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::modal.modal',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::modal.modal',
-      'oneToMany',
-      'api::modal.modal'
-    >;
-    modal: Attribute.Component<'nextjs.simple-modal-component'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::modal.modal'>;
+    modal: Schema.Attribute.Component<'nextjs.simple-modal-component', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::modal.modal',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiOncorKidSRacePageOncorKidSRacePage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'oncor_kid_s_race_pages';
   info: {
     description: '';
@@ -1378,55 +1328,50 @@ export interface ApiOncorKidSRacePageOncorKidSRacePage
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::oncor-kid-s-race-page.oncor-kid-s-race-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::oncor-kid-s-race-page.oncor-kid-s-race-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::oncor-kid-s-race-page.oncor-kid-s-race-page'
     >;
-    participants: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::oncor-kid-s-race-page.oncor-kid-s-race-page',
-      'oneToOne',
-      'admin::user'
+    participants: Schema.Attribute.Component<
+      'nextjs.two-column-layout',
+      false
     > &
-      Attribute.Private;
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiOrganizationPageOrganizationPage extends Schema.SingleType {
+export interface ApiOrganizationPageOrganizationPage
+  extends Struct.SingleTypeSchema {
   collectionName: 'organization_pages';
   info: {
     description: '';
@@ -1443,52 +1388,44 @@ export interface ApiOrganizationPageOrganizationPage extends Schema.SingleType {
     };
   };
   attributes: {
-    content: Attribute.Component<'nextjs.one-column-narrow'> &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
+    content: Schema.Attribute.Component<'nextjs.one-column-narrow', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::organization-page.organization-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::organization-page.organization-page',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::organization-page.organization-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    staff: Attribute.Component<'nextjs.staff-directory'> &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
+    staff: Schema.Attribute.Component<'nextjs.staff-directory', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::organization-page.organization-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiPressReleasePressRelease extends Schema.CollectionType {
+export interface ApiPressReleasePressRelease
+  extends Struct.CollectionTypeSchema {
   collectionName: 'press_releases';
   info: {
     description: '';
@@ -1505,71 +1442,58 @@ export interface ApiPressReleasePressRelease extends Schema.CollectionType {
     };
   };
   attributes: {
-    author: Attribute.Relation<
-      'api::press-release.press-release',
-      'manyToOne',
-      'api::author.author'
-    >;
-    blurb: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
+    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
+    blurb: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }> &
-      Attribute.SetMinMaxLength<{
+      Schema.Attribute.SetMinMaxLength<{
         maxLength: 250;
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::press-release.press-release',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.DateTime &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.DateTime &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::press-release.press-release',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::press-release.press-release'
     >;
-    publishedAt: Attribute.DateTime;
-    release: Attribute.RichText &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    release: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    slug: Attribute.String &
-      Attribute.SetPluginOptions<{
+    slug: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    title: Attribute.String &
-      Attribute.SetPluginOptions<{
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::press-release.press-release',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPricingTablesJsonPricingTablesJson
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pricing_tables_jsons';
   info: {
     displayName: 'Pricing Tables (JSON)';
@@ -1580,27 +1504,25 @@ export interface ApiPricingTablesJsonPricingTablesJson
     draftAndPublish: true;
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pricing-tables-json.pricing-tables-json',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pricing-tables-json.pricing-tables-json'
     > &
-      Attribute.Private;
-    pricing: Attribute.JSON;
-    publishedAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::pricing-tables-json.pricing-tables-json',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    pricing: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiRaceBeneficiaryPageRaceBeneficiaryPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'race_beneficiary_pages';
   info: {
     description: '';
@@ -1617,62 +1539,53 @@ export interface ApiRaceBeneficiaryPageRaceBeneficiaryPage
     };
   };
   attributes: {
-    ambassador: Attribute.Component<'nextjs.two-column-layout', true> &
-      Attribute.SetPluginOptions<{
+    ambassador: Schema.Attribute.Component<'nextjs.two-column-layout', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    banner: Attribute.RichText &
-      Attribute.SetPluginOptions<{
+    banner: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::race-beneficiary-page.race-beneficiary-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    interested: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    interested: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::race-beneficiary-page.race-beneficiary-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::race-beneficiary-page.race-beneficiary-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::race-beneficiary-page.race-beneficiary-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiRaceWeekendAddOnsPageRaceWeekendAddOnsPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'race_weekend_add_ons_pages';
   info: {
     displayName: 'Race Weekend Add-Ons Page';
@@ -1688,80 +1601,71 @@ export interface ApiRaceWeekendAddOnsPageRaceWeekendAddOnsPage
     };
   };
   attributes: {
-    banner: Attribute.RichText &
-      Attribute.SetPluginOptions<{
+    banner: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    choctaw: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    choctaw: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::race-weekend-add-ons-page.race-weekend-add-ons-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    itab: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    itab: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::race-weekend-add-ons-page.race-weekend-add-ons-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::race-weekend-add-ons-page.race-weekend-add-ons-page'
     >;
-    photo: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    photo: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    poster: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    poster: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    shirts: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    shirts: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::race-weekend-add-ons-page.race-weekend-add-ons-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiRaceWeekendInformationPageRaceWeekendInformationPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'race_weekend_information_pages';
   info: {
     description: '';
@@ -1778,92 +1682,83 @@ export interface ApiRaceWeekendInformationPageRaceWeekendInformationPage
     };
   };
   attributes: {
-    aid: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    aid: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::race-weekend-information-page.race-weekend-information-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    faq: Attribute.Component<'nextjs.faq-component'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    faq: Schema.Attribute.Component<'nextjs.faq-component', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    gear: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    gear: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    information: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    information: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::race-weekend-information-page.race-weekend-information-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::race-weekend-information-page.race-weekend-information-page'
     >;
-    pace: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    pace: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    packet: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    packet: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    parking: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    parking: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    ucan: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    ucan: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::race-weekend-information-page.race-weekend-information-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'running_and_walking_clubs_pages';
   info: {
     description: '';
@@ -1880,56 +1775,47 @@ export interface ApiRunningAndWalkingClubsPageRunningAndWalkingClubsPage
     };
   };
   attributes: {
-    banner: Attribute.RichText &
-      Attribute.SetPluginOptions<{
+    banner: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    clubs: Attribute.Component<'nextjs.two-column-layout', true> &
-      Attribute.SetPluginOptions<{
+    clubs: Schema.Attribute.Component<'nextjs.two-column-layout', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::running-and-walking-clubs-page.running-and-walking-clubs-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::running-and-walking-clubs-page.running-and-walking-clubs-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::running-and-walking-clubs-page.running-and-walking-clubs-page'
     >;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::running-and-walking-clubs-page.running-and-walking-clubs-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiRunningClubEventRunningClubEvent
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'running_club_events';
   info: {
     description: '';
@@ -1946,66 +1832,56 @@ export interface ApiRunningClubEventRunningClubEvent
     };
   };
   attributes: {
-    Address: Attribute.Component<'nextjs.address'> &
-      Attribute.SetPluginOptions<{
+    Address: Schema.Attribute.Component<'nextjs.address', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::running-club-event.running-club-event',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    Date: Attribute.DateTime &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.DateTime &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Description: Attribute.RichText &
-      Attribute.SetPluginOptions<{
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Link: Attribute.String &
-      Attribute.SetPluginOptions<{
+    Link: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::running-club-event.running-club-event',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::running-club-event.running-club-event'
     >;
-    Name: Attribute.String &
-      Attribute.SetPluginOptions<{
+    Name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    running_club: Attribute.Relation<
-      'api::running-club-event.running-club-event',
+    publishedAt: Schema.Attribute.DateTime;
+    running_club: Schema.Attribute.Relation<
       'manyToOne',
       'api::running-club.running-club'
     >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::running-club-event.running-club-event',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiRunningClubRunningClub extends Schema.CollectionType {
+export interface ApiRunningClubRunningClub extends Struct.CollectionTypeSchema {
   collectionName: 'running_clubs';
   info: {
     description: '';
@@ -2022,58 +1898,48 @@ export interface ApiRunningClubRunningClub extends Schema.CollectionType {
     };
   };
   attributes: {
-    clubId: Attribute.String &
-      Attribute.SetPluginOptions<{
+    clubId: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::running-club.running-club',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    Description: Attribute.RichText &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Image: Attribute.Component<'nextjs.next-image', true> &
-      Attribute.SetPluginOptions<{
+    Image: Schema.Attribute.Component<'nextjs.next-image', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::running-club.running-club',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::running-club.running-club'
     >;
-    Name: Attribute.String &
-      Attribute.SetPluginOptions<{
+    Name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    running_club_events: Attribute.Relation<
-      'api::running-club.running-club',
+    publishedAt: Schema.Attribute.DateTime;
+    running_club_events: Schema.Attribute.Relation<
       'oneToMany',
       'api::running-club-event.running-club-event'
     >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::running-club.running-club',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    Website: Attribute.String &
-      Attribute.SetPluginOptions<{
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Website: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
@@ -2082,7 +1948,7 @@ export interface ApiRunningClubRunningClub extends Schema.CollectionType {
 }
 
 export interface ApiSaturdayEventsPageSaturdayEventsPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'saturday_events_pages';
   info: {
     displayName: 'Saturday Events Page';
@@ -2098,85 +1964,80 @@ export interface ApiSaturdayEventsPageSaturdayEventsPage
     };
   };
   attributes: {
-    awards: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    awards: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    choctaw: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    choctaw: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::saturday-events-page.saturday-events-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    events: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    events: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    itab: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    itab: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::saturday-events-page.saturday-events-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::saturday-events-page.saturday-events-page'
     >;
-    participants: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Attribute.DateTime;
-    rules: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::saturday-events-page.saturday-events-page',
-      'oneToOne',
-      'admin::user'
+    participants: Schema.Attribute.Component<
+      'nextjs.two-column-layout',
+      false
     > &
-      Attribute.Private;
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    rules: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiSundayEventsPageSundayEventsPage extends Schema.SingleType {
+export interface ApiSundayEventsPageSundayEventsPage
+  extends Struct.SingleTypeSchema {
   collectionName: 'sunday_events_pages';
   info: {
     description: '';
@@ -2193,97 +2054,89 @@ export interface ApiSundayEventsPageSundayEventsPage extends Schema.SingleType {
     };
   };
   attributes: {
-    awards: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    awards: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    choctaw: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    choctaw: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::sunday-events-page.sunday-events-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    elite: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    elite: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    itab: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    itab: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    legacy: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    legacy: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::sunday-events-page.sunday-events-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::sunday-events-page.sunday-events-page'
     >;
-    participant: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    participant: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    rcca: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    rcca: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    rules: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    rules: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::sunday-events-page.sunday-events-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiSundayRelaysPageSundayRelaysPage extends Schema.SingleType {
+export interface ApiSundayRelaysPageSundayRelaysPage
+  extends Struct.SingleTypeSchema {
   collectionName: 'sunday_relays_pages';
   info: {
     displayName: 'Sunday Relays Page';
@@ -2299,67 +2152,62 @@ export interface ApiSundayRelaysPageSundayRelaysPage extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::sunday-relays-page.sunday-relays-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::sunday-relays-page.sunday-relays-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::sunday-relays-page.sunday-relays-page'
     >;
-    participants: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Attribute.DateTime;
-    relay: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    rules: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::sunday-relays-page.sunday-relays-page',
-      'oneToOne',
-      'admin::user'
+    participants: Schema.Attribute.Component<
+      'nextjs.two-column-layout',
+      false
     > &
-      Attribute.Private;
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    relay: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    rules: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiTrainingTipsPageTrainingTipsPage extends Schema.SingleType {
+export interface ApiTrainingTipsPageTrainingTipsPage
+  extends Struct.SingleTypeSchema {
   collectionName: 'training_tips_pages';
   info: {
     displayName: 'Training Tips Page';
@@ -2375,68 +2223,59 @@ export interface ApiTrainingTipsPageTrainingTipsPage extends Schema.SingleType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::training-tips-page.training-tips-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::training-tips-page.training-tips-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::training-tips-page.training-tips-page'
     >;
-    pain: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    pain: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    shoe: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    shoe: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    started: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    started: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    training: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    training: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::training-tips-page.training-tips-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiWeekendSeriesPageWeekendSeriesPage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'weekend_series_pages';
   info: {
     description: '';
@@ -2453,61 +2292,56 @@ export interface ApiWeekendSeriesPageWeekendSeriesPage
     };
   };
   attributes: {
-    choctaw: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
+    choctaw: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::weekend-series-page.weekend-series-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    date: Attribute.Component<'nextjs.date-time-place', true> &
-      Attribute.SetPluginOptions<{
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Component<'nextjs.date-time-place', true> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    hero: Attribute.Component<'nextjs.two-column-page-header'> &
-      Attribute.SetPluginOptions<{
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    locale: Attribute.String;
-    localizations: Attribute.Relation<
-      'api::weekend-series-page.weekend-series-page',
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::weekend-series-page.weekend-series-page'
     >;
-    participants: Attribute.Component<'nextjs.two-column-layout'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Attribute.DateTime;
-    seo: Attribute.Component<'nextjs.metadata'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::weekend-series-page.weekend-series-page',
-      'oneToOne',
-      'admin::user'
+    participants: Schema.Attribute.Component<
+      'nextjs.two-column-layout',
+      false
     > &
-      Attribute.Private;
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'nextjs.metadata', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface PluginContentReleasesRelease extends Schema.CollectionType {
+export interface PluginContentReleasesRelease
+  extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
   info: {
     displayName: 'Release';
@@ -2526,38 +2360,36 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
     };
   };
   attributes: {
-    actions: Attribute.Relation<
-      'plugin::content-releases.release',
+    actions: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::content-releases.release-action'
     >;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::content-releases.release',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::content-releases.release'
     > &
-      Attribute.Private;
-    name: Attribute.String & Attribute.Required;
-    releasedAt: Attribute.DateTime;
-    scheduledAt: Attribute.DateTime;
-    status: Attribute.Enumeration<
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    releasedAt: Schema.Attribute.DateTime;
+    scheduledAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
       ['ready', 'blocked', 'failed', 'done', 'empty']
     > &
-      Attribute.Required;
-    timezone: Attribute.String;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::content-releases.release',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Required;
+    timezone: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface PluginContentReleasesReleaseAction
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_release_actions';
   info: {
     displayName: 'Release Action';
@@ -2576,37 +2408,32 @@ export interface PluginContentReleasesReleaseAction
     };
   };
   attributes: {
-    contentType: Attribute.String & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::content-releases.release-action',
-      'oneToOne',
-      'admin::user'
+    contentType: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    entryDocumentId: Schema.Attribute.String;
+    isEntryValid: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::content-releases.release-action'
     > &
-      Attribute.Private;
-    entry: Attribute.Relation<
-      'plugin::content-releases.release-action',
-      'morphToOne'
-    >;
-    isEntryValid: Attribute.Boolean;
-    locale: Attribute.String;
-    release: Attribute.Relation<
-      'plugin::content-releases.release-action',
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    release: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::content-releases.release'
     >;
-    type: Attribute.Enumeration<['publish', 'unpublish']> & Attribute.Required;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::content-releases.release-action',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    type: Schema.Attribute.Enumeration<['publish', 'unpublish']> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
+export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
   collectionName: 'i18n_locale';
   info: {
     collectionName: 'locales';
@@ -2627,33 +2454,130 @@ export interface PluginI18NLocale extends Schema.CollectionType {
     };
   };
   attributes: {
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
+    code: Schema.Attribute.String & Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::i18n.locale'
     > &
-      Attribute.Private;
-    name: Attribute.String &
-      Attribute.SetMinMax<
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetMinMax<
         {
           max: 50;
           min: 1;
         },
         number
       >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface PluginUploadFile extends Schema.CollectionType {
+export interface PluginReviewWorkflowsWorkflow
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_workflows';
+  info: {
+    description: '';
+    displayName: 'Workflow';
+    name: 'Workflow';
+    pluralName: 'workflows';
+    singularName: 'workflow';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    contentTypes: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'[]'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::review-workflows.workflow'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    stageRequiredToPublish: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::review-workflows.workflow-stage'
+    >;
+    stages: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::review-workflows.workflow-stage'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginReviewWorkflowsWorkflowStage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_workflows_stages';
+  info: {
+    description: '';
+    displayName: 'Stages';
+    name: 'Workflow Stage';
+    pluralName: 'workflow-stages';
+    singularName: 'workflow-stage';
+  };
+  options: {
+    draftAndPublish: false;
+    version: '1.1.0';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#4945FF'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::review-workflows.workflow-stage'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    permissions: Schema.Attribute.Relation<'manyToMany', 'admin::permission'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    workflow: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::review-workflows.workflow'
+    >;
+  };
+}
+
+export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
     description: '';
@@ -2661,6 +2585,9 @@ export interface PluginUploadFile extends Schema.CollectionType {
     pluralName: 'files';
     singularName: 'file';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -2670,60 +2597,56 @@ export interface PluginUploadFile extends Schema.CollectionType {
     };
   };
   attributes: {
-    alternativeText: Attribute.String;
-    caption: Attribute.String;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::upload.file',
-      'oneToOne',
-      'admin::user'
+    alternativeText: Schema.Attribute.Text;
+    caption: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
+    folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
+      Schema.Attribute.Private;
+    folderPath: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    formats: Schema.Attribute.JSON;
+    hash: Schema.Attribute.String & Schema.Attribute.Required;
+    height: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::upload.file'
     > &
-      Attribute.Private;
-    ext: Attribute.String;
-    folder: Attribute.Relation<
-      'plugin::upload.file',
-      'manyToOne',
-      'plugin::upload.folder'
-    > &
-      Attribute.Private;
-    folderPath: Attribute.String &
-      Attribute.Required &
-      Attribute.Private &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    formats: Attribute.JSON;
-    hash: Attribute.String & Attribute.Required;
-    height: Attribute.Integer;
-    mime: Attribute.String & Attribute.Required;
-    name: Attribute.String & Attribute.Required;
-    previewUrl: Attribute.String;
-    provider: Attribute.String & Attribute.Required;
-    provider_metadata: Attribute.JSON;
-    related: Attribute.Relation<'plugin::upload.file', 'morphToMany'>;
-    size: Attribute.Decimal & Attribute.Required;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::upload.file',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    url: Attribute.String & Attribute.Required;
-    width: Attribute.Integer;
+      Schema.Attribute.Private;
+    mime: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    previewUrl: Schema.Attribute.Text;
+    provider: Schema.Attribute.String & Schema.Attribute.Required;
+    provider_metadata: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    related: Schema.Attribute.Relation<'morphToMany'>;
+    size: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
+    width: Schema.Attribute.Integer;
   };
 }
 
-export interface PluginUploadFolder extends Schema.CollectionType {
+export interface PluginUploadFolder extends Struct.CollectionTypeSchema {
   collectionName: 'upload_folders';
   info: {
     displayName: 'Folder';
     pluralName: 'folders';
     singularName: 'folder';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -2733,57 +2656,40 @@ export interface PluginUploadFolder extends Schema.CollectionType {
     };
   };
   attributes: {
-    children: Attribute.Relation<
-      'plugin::upload.folder',
+    children: Schema.Attribute.Relation<'oneToMany', 'plugin::upload.folder'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    files: Schema.Attribute.Relation<'oneToMany', 'plugin::upload.file'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::upload.folder'
-    >;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::upload.folder',
-      'oneToOne',
-      'admin::user'
     > &
-      Attribute.Private;
-    files: Attribute.Relation<
-      'plugin::upload.folder',
-      'oneToMany',
-      'plugin::upload.file'
-    >;
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    parent: Attribute.Relation<
-      'plugin::upload.folder',
-      'manyToOne',
-      'plugin::upload.folder'
-    >;
-    path: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    pathId: Attribute.Integer & Attribute.Required & Attribute.Unique;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::upload.folder',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    parent: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'>;
+    path: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    pathId: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface PluginUsersPermissionsPermission
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'up_permissions';
   info: {
     description: '';
@@ -2792,6 +2698,9 @@ export interface PluginUsersPermissionsPermission
     pluralName: 'permissions';
     singularName: 'permission';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -2801,30 +2710,29 @@ export interface PluginUsersPermissionsPermission
     };
   };
   attributes: {
-    action: Attribute.String & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::users-permissions.permission',
-      'oneToOne',
-      'admin::user'
+    action: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.permission'
     > &
-      Attribute.Private;
-    role: Attribute.Relation<
-      'plugin::users-permissions.permission',
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface PluginUsersPermissionsRole extends Schema.CollectionType {
+export interface PluginUsersPermissionsRole
+  extends Struct.CollectionTypeSchema {
   collectionName: 'up_roles';
   info: {
     description: '';
@@ -2833,6 +2741,9 @@ export interface PluginUsersPermissionsRole extends Schema.CollectionType {
     pluralName: 'roles';
     singularName: 'role';
   };
+  options: {
+    draftAndPublish: false;
+  };
   pluginOptions: {
     'content-manager': {
       visible: false;
@@ -2842,41 +2753,39 @@ export interface PluginUsersPermissionsRole extends Schema.CollectionType {
     };
   };
   attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::users-permissions.role',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.role'
     > &
-      Attribute.Private;
-    description: Attribute.String;
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    permissions: Attribute.Relation<
-      'plugin::users-permissions.role',
+    permissions: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.permission'
     >;
-    type: Attribute.String & Attribute.Unique;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.role',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    users: Attribute.Relation<
-      'plugin::users-permissions.role',
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String & Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     >;
   };
 }
 
-export interface PluginUsersPermissionsUser extends Schema.CollectionType {
+export interface PluginUsersPermissionsUser
+  extends Struct.CollectionTypeSchema {
   collectionName: 'up_users';
   info: {
     description: '';
@@ -2890,56 +2799,55 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     timestamps: true;
   };
   attributes: {
-    blocked: Attribute.Boolean & Attribute.DefaultTo<false>;
-    confirmationToken: Attribute.String & Attribute.Private;
-    confirmed: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
+    blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
+    confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 6;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
     > &
-      Attribute.Private;
-    email: Attribute.Email &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+      Schema.Attribute.Private;
+    password: Schema.Attribute.Password &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    password: Attribute.Password &
-      Attribute.Private &
-      Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
-    provider: Attribute.String;
-    resetPasswordToken: Attribute.String & Attribute.Private;
-    role: Attribute.Relation<
-      'plugin::users-permissions.user',
+    provider: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    username: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface ContentTypes {
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ContentTypeSchemas {
       'admin::api-token': AdminApiToken;
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::permission': AdminPermission;
       'admin::role': AdminRole;
+      'admin::session': AdminSession;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
@@ -2977,6 +2885,8 @@ declare module '@strapi/types' {
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
+      'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
+      'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
