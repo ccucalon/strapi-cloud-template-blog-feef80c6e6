@@ -17,63 +17,33 @@
   "attributes": {
     "seo": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.metadata"
+      "component": "nextjs.metadata",
+      "repeatable": false
     },
     "hero": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-page-header"
+      "component": "nextjs.two-column-page-header",
+      "repeatable": false
     },
-    "started": {
+    "section": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
-    },
-    "training": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "nextjs.two-column-layout"
-    },
-    "shoe": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "nextjs.two-column-layout"
-    },
-    "pain": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": true
     }
   }
 }

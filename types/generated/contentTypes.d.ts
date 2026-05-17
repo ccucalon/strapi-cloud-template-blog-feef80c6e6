@@ -2237,32 +2237,14 @@ export interface ApiTrainingTipsPageTrainingTipsPage
       'oneToMany',
       'api::training-tips-page.training-tips-page'
     >;
-    pain: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     publishedAt: Schema.Attribute.DateTime;
+    section: Schema.Attribute.Component<'nextjs.two-column-layout', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     seo: Schema.Attribute.Component<'nextjs.metadata', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    shoe: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    started: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    training: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
