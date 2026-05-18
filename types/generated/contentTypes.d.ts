@@ -520,6 +520,50 @@ export interface ApiAllEventsPageAllEventsPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAthletesWithDisabilityAthletesWithDisability
+  extends Struct.SingleTypeSchema {
+  collectionName: 'athletes_with_disabilities';
+  info: {
+    displayName: 'Athletes With Disability';
+    pluralName: 'athletes-with-disabilities';
+    singularName: 'athletes-with-disability';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::athletes-with-disability.athletes-with-disability'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   collectionName: 'authors';
   info: {
@@ -2840,6 +2884,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::all-events-page.all-events-page': ApiAllEventsPageAllEventsPage;
+      'api::athletes-with-disability.athletes-with-disability': ApiAthletesWithDisabilityAthletesWithDisability;
       'api::author.author': ApiAuthorAuthor;
       'api::certified-results-requests-page.certified-results-requests-page': ApiCertifiedResultsRequestsPageCertifiedResultsRequestsPage;
       'api::contact-page.contact-page': ApiContactPageContactPage;

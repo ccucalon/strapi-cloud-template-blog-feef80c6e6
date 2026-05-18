@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "athletes_with_disabilities",
+  "info": {
+    "singularName": "athletes-with-disability",
+    "pluralName": "athletes-with-disabilities",
+    "displayName": "Athletes With Disability"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.seo",
+      "repeatable": false
+    },
+    "hero": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-page-header",
+      "repeatable": false
+    }
+  }
+}
