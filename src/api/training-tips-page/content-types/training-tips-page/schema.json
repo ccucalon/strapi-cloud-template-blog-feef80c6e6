@@ -44,6 +44,16 @@
       },
       "component": "nextjs.two-column-layout",
       "repeatable": true
+    },
+    "banner": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.rich-text",
+      "repeatable": false
     }
   }
 }

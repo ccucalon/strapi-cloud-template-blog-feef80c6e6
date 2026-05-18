@@ -2223,6 +2223,12 @@ export interface ApiTrainingTipsPageTrainingTipsPage
     };
   };
   attributes: {
+    banner: Schema.Attribute.Component<'shared.rich-text', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
