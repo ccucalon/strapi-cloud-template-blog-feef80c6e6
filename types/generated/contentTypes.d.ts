@@ -1660,6 +1660,12 @@ export interface ApiRaceWeekendAddOnsPageRaceWeekendAddOnsPage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    frame: Schema.Attribute.Component<'nextjs.two-column-layout', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     hero: Schema.Attribute.Component<'nextjs.two-column-page-header', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

@@ -17,73 +17,83 @@
   "attributes": {
     "seo": {
       "type": "component",
-      "repeatable": false,
-      "component": "nextjs.metadata",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "nextjs.metadata",
+      "repeatable": false
     },
     "hero": {
       "type": "component",
-      "repeatable": false,
-      "component": "nextjs.two-column-page-header",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "nextjs.two-column-page-header",
+      "repeatable": false
     },
     "shirts": {
       "type": "component",
-      "repeatable": false,
-      "component": "nextjs.two-column-layout",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "poster": {
       "type": "component",
-      "repeatable": false,
-      "component": "nextjs.two-column-layout",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "choctaw": {
       "type": "component",
-      "repeatable": false,
-      "component": "nextjs.two-column-layout",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "photo": {
       "type": "component",
-      "repeatable": false,
-      "component": "nextjs.two-column-layout",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "itab": {
       "type": "component",
-      "repeatable": false,
-      "component": "nextjs.two-column-layout",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
+    },
+    "frame": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "banner": {
       "type": "richtext",
