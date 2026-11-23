@@ -18,103 +18,113 @@
   "attributes": {
     "seo": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.metadata"
+      "component": "nextjs.metadata",
+      "repeatable": false
     },
     "hero": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-page-header"
+      "component": "nextjs.two-column-page-header",
+      "repeatable": false
     },
     "packet": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "faq": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.faq-component"
+      "component": "nextjs.faq-component",
+      "repeatable": false
     },
     "parking": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "gear": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "information": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "ucan": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "aid": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
+    },
+    "nutrition": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     },
     "pace": {
       "type": "component",
-      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "nextjs.two-column-layout"
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     }
   }
 }
