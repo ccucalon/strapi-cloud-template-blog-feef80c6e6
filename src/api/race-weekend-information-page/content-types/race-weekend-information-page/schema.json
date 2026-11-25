@@ -125,6 +125,16 @@
       },
       "component": "nextjs.two-column-layout",
       "repeatable": false
+    },
+    "cramp_support": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "nextjs.two-column-layout",
+      "repeatable": false
     }
   }
 }
